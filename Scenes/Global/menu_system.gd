@@ -21,6 +21,8 @@ func LoadMenu(fileName: String) -> bool:
 	var jsonArrParser:JSON = JSON.new()
 	jsonParser.parse(jsonFile.get_as_text())
 	
+	#poops hehe.
+	
 	print("data:", type_string(typeof(jsonParser.data)) )
 	for menuObj:Variant in jsonParser.data:
 		print("menuObj: ", type_string(typeof(menuObj)))
@@ -29,6 +31,7 @@ func LoadMenu(fileName: String) -> bool:
 		if typeof(subObj) == TYPE_ARRAY:
 			print("\t",menuObj, ":")
 			for element in subObj:
+				print("element:", type_string(typeof(element)))
 				if typeof(element) == TYPE_DICTIONARY:
 					for subElement in element:
 						print("\t\t", subElement, ": ", element[subElement])
