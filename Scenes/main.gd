@@ -2,7 +2,6 @@ extends Node2D
 
 # this is different
 # this is also different
-#fuckame
 
 # hello world this is attempt number 3 
 
