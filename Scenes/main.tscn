@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dwbyv8005luva"]
+
+[ext_resource type="Script" path="res://Scenes/main.gd" id="1_waose"]
+[ext_resource type="Texture2D" uid="uid://q260ocbx7o3q" path="res://Art/Textures/GalaxyBG.png" id="2_acfsu"]
+[ext_resource type="PackedScene" uid="uid://ea68uiqkldeo" path="res://Scenes/Global/menu_system.tscn" id="3_ybw2i"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_waose")
+
+[node name="MainBG" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(28.7273, 16)
+texture = ExtResource("2_acfsu")
+expand_mode = 4
+
+[node name="MenuSystem" parent="." instance=ExtResource("3_ybw2i")]
+position = Vector2(419, 249)

@@ -1,0 +1,14 @@
+MainMenu
+	Select Game
+	Options
+	Exit
+	
+SelectGame
+	TestGame
+	Exit
+	
+Opions
+	Graphics
+	Gameplay
+	Audio
+	Exit
