@@ -5,6 +5,8 @@ extends Node2D
 
 # hello world this is attempt number 3 
 
+#I found god. he was dead in a toilet.
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$MenuSystem.LoadMenu("res://GameData/DesignData/TestData.json")
