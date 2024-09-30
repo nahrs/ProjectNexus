@@ -9,7 +9,8 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$MenuSystem.LoadMenu("res://GameData/DesignData/TestData.json")
+	$MenuSystem.LoadMenu("res://GameData/DesignData/Design.MenuData.json")
+	$MenuSystem.ClearMenuItems("res://GameData/DesignData/Design.MenuDataTwo.json")
 	pass
 
 

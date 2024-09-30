@@ -16,12 +16,12 @@ func _process(delta: float) -> void:
 
 # Add a menu 
 func LoadMenu(fileName: String) -> bool:
-	var jsonFile := FileAccess.open("res://GameData/DesignData/Design.MenuData.json", FileAccess.READ)
+	var jsonFile := FileAccess.open(fileName, FileAccess.READ)
 	var jsonParser:JSON = JSON.new()
 	var jsonArrParser:JSON = JSON.new()
 	jsonParser.parse(jsonFile.get_as_text())
 	
-	print("data:", type_string(typeof(jsonParser.data)) )
+	print("data: ", type_string(typeof(jsonParser.data)) )
 	for menuObj:Variant in jsonParser.data:
 		print("menuObj: ", type_string(typeof(menuObj)))
 		var subObj = jsonParser.data[menuObj]
@@ -39,7 +39,7 @@ func LoadMenu(fileName: String) -> bool:
 			
 	return true
 
-func ClearMenuItems() -> void:
+func ClearMenuItems(fileName: String) -> void:
 	pass
 
 #######################################################################################
