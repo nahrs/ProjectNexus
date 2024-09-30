@@ -15,6 +15,7 @@ func _process(delta: float) -> void:
 
 
 # Add a menu 
+
 func LoadMenu(fileName: String) -> bool:
 	var jsonFile := FileAccess.open(fileName, FileAccess.READ)
 	var jsonParser:JSON = JSON.new()
@@ -40,6 +41,62 @@ func LoadMenu(fileName: String) -> bool:
 	return true
 
 func ClearMenuItems(fileName: String) -> void:
+=======
+func LoadMenu(definitionName: String) -> bool:
+	#Load the definition for the menu.
+	var menuDefinition := DesignData.GetDefinition(DesignData.CMenu.cTableName, definitionName)
+	
+	#Get the properties from the menu.
+	var headerText:String = menuDefinition[DesignData.CMenu.cFieldHeader]
+	var menuItemArr:Array = menuDefinition[DesignData.CMenu.cTableLinkArrayMenuItems]
+	
+	#For each menuItem in the menu definition, add a menuItem UI object.
+	var menuItemCount = 0
+	for tableLink:Variant in menuItemArr:
+		var menuItemDefinition := DesignData.GetDefinitionByTableLink(tableLink)
+		createMenuItemInterfaceElement(menuItemDefinition,menuItemCount)
+		menuItemCount = menuItemCount + 1
+	
+	#var jsonFile := FileAccess.open("res://GameData/DesignData/Design.MenuData.json", FileAccess.READ)
+	#var jsonParser:JSON = JSON.new()
+	#var jsonArrParser:JSON = JSON.new()
+	#jsonParser.parse(jsonFile.get_as_text())
+	#
+	##poops hehe.
+	#
+	#print("data:", type_string(typeof(jsonParser.data)) )
+	#for menuObj:Variant in jsonParser.data:
+		#print("menuObj: ", type_string(typeof(menuObj)))
+		#var subObj = jsonParser.data[menuObj]
+		#print("subObj: ", type_string(typeof(subObj)))
+		#if typeof(subObj) == TYPE_ARRAY:
+			#print("\t",menuObj, ":")
+			#for element in subObj:
+				#print("element:", type_string(typeof(element)))
+				#if typeof(element) == TYPE_DICTIONARY:
+					#for subElement in element:
+						#print("\t\t", subElement, ": ", element[subElement])
+				#else:
+					#print(element)
+		#else:
+			#print(menuObj, " ", subObj)
+			#
+	return true
+
+func createMenuItemInterfaceElement(menuItem: Dictionary, index: int) -> void:
+	var text = menuItem[DesignData.CMenuItem.cFieldText]
+	var button = Button.new()
+	
+	button.text = text
+	button.icon_alignment = index
+	
+	button.pressed.connect(self.buttonPressed)
+
+func buttonPressed() -> void:
+	pass
+
+func ClearMenuItems() -> void:
+
 	pass
 
 #######################################################################################
