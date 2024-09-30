@@ -25,6 +25,8 @@ func _ready() -> void:
 		print("\tSubMenu: ", def[DesignData.CMenuItem.cTableLinkSubMenu])
 		print("\tCallback: ", def[DesignData.CMenuItem.cFieldCallback], "\n")
 	
+	#test.
+	
 	$MenuSystem.LoadMenu("res://GameData/DesignData/TestData.json")
 	pass
 
