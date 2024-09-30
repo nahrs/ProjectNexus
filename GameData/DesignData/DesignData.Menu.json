@@ -1,0 +1,28 @@
+{
+	"MainMenu" :{
+		"header" : "Main Menu",
+		"menuItems" : [
+			"MenuItem/MainMenu.GameSelect",
+			"MenuItem/MainMenu.Options",
+			"MenuItem/ExitGame"
+		]
+	},
+	"OptionsMenu":{
+		"header" : "Options",
+		"menuItems" :	[
+			"MenuItem/Options.Gameplay",
+			"MenuItem/Options.Audio",
+			"MenuItem/Options.Display",
+			"MenuItem/Options.Exit"
+		]
+	},
+	"GameSelectMenu":{
+		"header" : "Game Select",
+		"menuItems" :	[
+			"MenuItem/GameSelect.DodgeTheCops",
+			"MenuItem/GameSelect.DodgeTheCreeps",
+			"MenuItem/GameSelect.DodgeTheJareds",
+			"MenuItem/GameSelect.Back"
+		]
+	}
+}
