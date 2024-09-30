@@ -28,6 +28,7 @@ func _ready() -> void:
 	#test.
 	
 	$MenuSystem.LoadMenu("res://GameData/DesignData/TestData.json")
+	$MenuSystem.createMenuItemInterfaceElement()
 	pass
 
 
