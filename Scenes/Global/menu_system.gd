@@ -27,7 +27,7 @@ func LoadMenu(definitionName: String) -> bool:
 	var menuItemCount = 0
 	for tableLink:Variant in menuItemArr:
 		var menuItemDefinition := DesignData.GetDefinitionByTableLink(tableLink)
-		createMenuItemInterfaceElement(menuItemDefinition,menuItemCount)
+		createMenuItemInterfaceElement(menuItemDefinition,menuItemCount, menuItemArr.size())
 		menuItemCount = menuItemCount + 1
 	
 	#var jsonFile := FileAccess.open("res://GameData/DesignData/Design.MenuData.json", FileAccess.READ)
@@ -56,14 +56,15 @@ func LoadMenu(definitionName: String) -> bool:
 			#
 	return true
 
-func createMenuItemInterfaceElement(menuItem: Dictionary, index: int) -> void:
+func createMenuItemInterfaceElement(menuItem: Dictionary, index: int, totalButtons: int) -> void:
 	var text = menuItem[DesignData.CMenuItem.cFieldText]
 	var button = Button.new()
 	
 	button.text = text
-	button.icon_alignment = index
+	button.set_position(Vector2((get_viewport().get_visible_rect().size.x / 2) * (index/totalButtons), (get_viewport().get_visible_rect().size.y /2)))
 	
 	button.pressed.connect(self.buttonPressed)
+	add_child(button)
 
 func buttonPressed() -> void:
 	pass
