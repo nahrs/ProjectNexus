@@ -56,7 +56,16 @@ func LoadMenu(definitionName: String) -> bool:
 			#
 	return true
 
-func createMenuItemInterfaceElement(menuItem:Dictionary, index: int) -> void:
+func createMenuItemInterfaceElement(menuItem: Dictionary, index: int) -> void:
+	var text = menuItem[DesignData.CMenuItem.cFieldText]
+	var button = Button.new()
+	
+	button.text = text
+	button.icon_alignment = index
+	
+	button.pressed.connect(self.buttonPressed)
+
+func buttonPressed() -> void:
 	pass
 
 func ClearMenuItems() -> void:
