@@ -59,12 +59,27 @@ func LoadMenu(definitionName: String) -> bool:
 func createMenuItemInterfaceElement(menuItem: Dictionary, index: int, totalButtons: int) -> void:
 	var text = menuItem[DesignData.CMenuItem.cFieldText]
 	var button = Button.new()
+	var padding = 3
 	
 	button.text = text
-	button.set_position(Vector2((get_viewport().get_visible_rect().size.x / 2) * (index/totalButtons), (get_viewport().get_visible_rect().size.y /2)))
+	add_child(button)
+	
+	var xpos: float = 0 - (button.size.x / 2) #get_viewport().get_visible_rect().size.x / 2 # + (((index * button.size.x) - (totalButtons * button.size.x)/2) - (totalButtons * button.size.x)/2)	add this to x after getting the middle to align buttons horizontally
+	var ypos: float = index * (button.size.y + padding) * button.scale.y  #- (totalButtons * button.size.y * button.scale.y / 2) #get_viewport().get_visible_rect().size.y / 2 + (index * button.size.y) - (totalButtons * button.size.y)/2
+	
+	button.set_position(Vector2(xpos, ypos))
+	
+	print("index: ", index)
+	print("totalButtons: ", totalButtons)
+	print("xpos: ", xpos)
+	print("ypos: ", ypos)
+	print("buttonsize: ", button.size)
+	print("buttonscale: ", button.scale)
+	print("\n\n")
+	
+	
 	
 	button.pressed.connect(self.buttonPressed)
-	add_child(button)
 
 func buttonPressed() -> void:
 	pass
