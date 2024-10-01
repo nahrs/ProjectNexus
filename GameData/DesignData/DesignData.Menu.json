@@ -4,7 +4,7 @@
 		"menuItems" : [
 			"MenuItem/MainMenu.GameSelect",
 			"MenuItem/MainMenu.Options",
-			"MenuItem/ExitGame"
+			"MenuItem/ExitGame",
 		]
 	},
 	"OptionsMenu":{

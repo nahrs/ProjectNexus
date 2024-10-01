@@ -83,13 +83,18 @@ func buttonPressed(id: String) -> void:
 	var tableLink :String = DesignData.GetString(DesignData.CMenuItem.cTableName,id, DesignData.CMenuItem.cTableLinkSubMenu)
 	var callBack :String = DesignData.GetString(DesignData.CMenuItem.cTableName,id, DesignData.CMenuItem.cFieldCallback)
 	
+	if (callBack.length() > 0):
+		print(self.has_method(callBack))
+		if (!self.has_method(callBack)):
+			print(get_script().get_path(), ":: callback: ", callBack, " not found for id: ", id)
+		else:
+			self.call(callBack)
 	
 	if (tableLink.length() > 0):
 		var menuTable: String = DesignData.GetStringByTableLink(tableLink,DesignData.cIdField)
 		if (menuTable.length() > 0):
 			LoadMenu(menuTable)
-	elif (callBack.length() > 0):
-		self.call(callBack)
+
 
 func quitGame() -> void:
 	get_tree().quit()
