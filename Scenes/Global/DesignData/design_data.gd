@@ -1,6 +1,7 @@
 extends Node
 
 var m_DesignData : IDesignDataManager
+const cIdField = "Id"
 var CMenuItem : IMenuItemDefines
 var CMenu : IMenuDefines
 
@@ -144,9 +145,19 @@ class IDesignDataManager :
 				#Store this design data in our lookup table. strip all the json bullshit.
 				if typeof(jsonParser.data) == TYPE_DICTIONARY:
 					m_dataTablesByName[designName] = jsonParser.data.duplicate(true)
-					for definition in m_dataTablesByName[designName]:
+					var table:Dictionary = m_dataTablesByName[designName]
+					#Loop through the table to grab all the definition keys.
+					for defKey in table:
+						var definition:Dictionary = table[defKey]
+						#this should be a definition if the data was formatted correctly, which should be of type dictionary.
 						if typeof(definition) == TYPE_DICTIONARY:
+							if !definition.has(cIdField):
+								#Add the id field if it does not exist.
+								definition[cIdField] = table.find_key(definition)
+							#This will prevent a user from accidentally changing definition data, which could cause very strange behavior.
 							definition.make_read_only()
+						else:
+							print("IDesignDataManager::LoadTable - failure definition should be of type dictionary")
 					print("IDesignDataManager::LoadTable - load success: ", designName )
 				else:
 					print("IDesignDataManager::LoadTable - load failure: ", designName, " expected root type dictionary, got ", type_string(typeof(jsonParser.data)))
