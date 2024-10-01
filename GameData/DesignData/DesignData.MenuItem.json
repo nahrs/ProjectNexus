@@ -14,8 +14,14 @@
 	"ExitGame": {
 		"text": "Exit Game",
 		"subText": "",
-		"callback": "OnExitGameSelected",
+		"callback": "quitGame",
 		"subMenu": ""
+	},
+		"GameSelect.Back": {
+		"text": "Back",
+		"subText": "Go Back",
+		"callback": "",
+		"subMenu": "Menu/MainMenu"
 	},
 	"Options.Gameplay": {
 		"text": "Gameplay",

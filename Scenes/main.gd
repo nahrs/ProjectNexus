@@ -30,7 +30,7 @@ func _ready() -> void:
 	
 	$MenuSystem.LoadMenu("MainMenu")
 	$MenuSystem.set_position(get_viewport_rect().size / 2)
-	print($MenuSystem.position)
+	
 	#################################################################
 	# testing buttons
 	

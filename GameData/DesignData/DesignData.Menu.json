@@ -20,7 +20,7 @@
 		"header" : "Game Select",
 		"menuItems" :	[
 			"MenuItem/GameSelect.DodgeTheCops",
-			"MenuItem/GameSelect.DodgeTheCreeps",
+			"MenuItem/GameSelect.DodgeDeezNuts",
 			"MenuItem/GameSelect.DodgeTheJareds",
 			"MenuItem/GameSelect.Back"
 		]

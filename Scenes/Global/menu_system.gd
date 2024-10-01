@@ -3,6 +3,7 @@ extends Node2D
 signal OnMenuItemSelected
 
 var MenuDataManager := CMenuDataManager.new()
+var menuButtons :Array
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -16,6 +17,11 @@ func _process(delta: float) -> void:
 
 # Add a menu 
 func LoadMenu(definitionName: String) -> bool:
+	#clear prev buttons
+	for button in menuButtons:
+		remove_child(button)
+	menuButtons.clear()
+	
 	#Load the definition for the menu.
 	var menuDefinition := DesignData.GetDefinition(DesignData.CMenu.cTableName, definitionName)
 	
@@ -58,6 +64,7 @@ func LoadMenu(definitionName: String) -> bool:
 
 func createMenuItemInterfaceElement(menuItem: Dictionary, index: int, totalButtons: int) -> void:
 	var text = menuItem[DesignData.CMenuItem.cFieldText]
+	var id = menuItem[DesignData.cIdField]
 	var button = Button.new()
 	var padding = 3
 	
@@ -68,21 +75,24 @@ func createMenuItemInterfaceElement(menuItem: Dictionary, index: int, totalButto
 	var ypos: float = index * (button.size.y + padding) * button.scale.y  #- (totalButtons * button.size.y * button.scale.y / 2) #get_viewport().get_visible_rect().size.y / 2 + (index * button.size.y) - (totalButtons * button.size.y)/2
 	
 	button.set_position(Vector2(xpos, ypos))
+	button.pressed.connect(self.buttonPressed.bind(id))
 	
-	print("index: ", index)
-	print("totalButtons: ", totalButtons)
-	print("xpos: ", xpos)
-	print("ypos: ", ypos)
-	print("buttonsize: ", button.size)
-	print("buttonscale: ", button.scale)
-	print("\n\n")
-	
-	
-	
-	button.pressed.connect(self.buttonPressed)
+	menuButtons.append(button)
 
-func buttonPressed() -> void:
-	pass
+func buttonPressed(id: String) -> void:
+	var tableLink :String = DesignData.GetString(DesignData.CMenuItem.cTableName,id, DesignData.CMenuItem.cTableLinkSubMenu)
+	var callBack :String = DesignData.GetString(DesignData.CMenuItem.cTableName,id, DesignData.CMenuItem.cFieldCallback)
+	
+	
+	if (tableLink.length() > 0):
+		var menuTable: String = DesignData.GetStringByTableLink(tableLink,DesignData.cIdField)
+		if (menuTable.length() > 0):
+			LoadMenu(menuTable)
+	elif (callBack.length() > 0):
+		self.call(callBack)
+
+func quitGame() -> void:
+	get_tree().quit()
 
 func ClearMenuItems() -> void:
 	pass
