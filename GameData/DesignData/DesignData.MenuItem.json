@@ -1,68 +1,82 @@
-{ 
-	"MainMenu.GameSelect": {
-		"text": "Game Select",
-		"subText": "Select which game you'd like to play.",
-		"callback": "",
-		"subMenu": "Menu/GameSelectMenu"
-	},
-	"MainMenu.Options": {
-		"text": "Options",
-		"subText": "Change Your Game Settings.",
-		"callback": "",
-		"subMenu": "Menu/OptionsMenu"
-	},
-	"ExitGame": {
-		"text": "Exit Game",
-		"subText": "",
-		"callback": "quitGame",
-		"subMenu": ""
-	},
+{
+	"table": "MenuItem",
+	"keys" : {
+		"MainMenu.GameSelect": {
+			"text": "Game Select",
+			"subText": "Select which game you'd like to play.",
+			"callback": "",
+			"callbackParams": "",
+			"subMenu": "Menu[GameSelectMenu]"
+		},
+		"MainMenu.Options": {
+			"text": "Options",
+			"subText": "Change Your Game Settings.",
+			"callback": "",
+			"callbackParams": "",
+			"subMenu": "Menu[OptionsMenu]"
+		},
+		"ExitGame": {
+			"text": "Exit Game",
+			"subText": "",
+			"callback": "quitGame",
+			"callbackParams": "",
+			"subMenu": ""
+		},
 		"GameSelect.Back": {
-		"text": "Back",
-		"subText": "Go Back",
-		"callback": "",
-		"subMenu": "Menu/MainMenu"
-	},
-	"Options.Gameplay": {
-		"text": "Gameplay",
-		"subText": "Edit Gameplay Settings",
-		"callback": "",
-		"subMenu": "Menu/GameplayOptions"
-	},
-	"Options.Audio": {
-		"text": "Audio",
-		"subText": "Edit Audio Settings",
-		"callback": "",
-		"subMenu": "Menu/AudioOptions"
-	},
-	"Options.Display": {
-		"text": "Display",
-		"subText": "Edit Display Settings",
-		"callback": "",
-		"subMenu": "Menu/DisplayOptions"
-	},
-	"Options.Exit": {
-		"text": "Exit",
-		"subText": "Exit Options Menu",
-		"callback": "",
-		"subMenu": "Menu/MainMenu"
-	},
-	"GameSelect.DodgeTheCops": {
-		"text": "Dodge The Cops",
-		"subText": "A thrilling game of attempted police brutality!",
-		"callback": "OnGameSelect_DodgeTheCops",
-		"subMenu": ""
-	},
-	"GameSelect.DodgeTheJareds": {
-		"text": "Dodge The Jareds",
-		"subText": "Learn about child safety in this educational game!",
-		"callback": "OnGameSelect_DodgeTheJareds",
-		"subMenu": ""
-	},
-	"GameSelect.DodgeDeezNuts": {
-		"text": "Dodge Deez Nuts",
-		"subText": "A cautionary tale about the serious effects of allergies",
-		"callback": "OnGameSelect_DodgeDeezNuts",
-		"subMenu": ""
+			"text": "Back",
+			"subText": "Go Back",
+			"callback": "",
+			"callbackParams": "",
+			"subMenu": "Menu[MainMenu]"
+		},
+		"Options.Gameplay": {
+			"text": "Gameplay",
+			"subText": "Edit Gameplay Settings",
+			"callback": "",
+			"callbackParams": "",
+			"subMenu": "Menu[GameplayOptions]"
+		},
+		"Options.Audio": {
+			"text": "Audio",
+			"subText": "Edit Audio Settings",
+			"callback": "",
+			"callbackParams": "",
+			"subMenu": "Menu[AudioOptions]"
+		},
+		"Options.Display": {
+			"text": "Display",
+			"subText": "Edit Display Settings",
+			"callback": "",
+			"callbackParams": "",
+			"subMenu": "Menu[DisplayOptions]"
+		},
+		"Options.Exit": {
+			"text": "Exit",
+			"subText": "Exit Options Menu",
+			"callback": "",
+			"callbackParams": "",
+			"subMenu": "Menu[MainMenu]"
+		},
+		"GameSelect.DodgeTheCops": {
+			"text": "Dodge The Cops",
+			"subText": "A thrilling game of attempted police brutality!",
+			"callback": "OnGameSelect_DodgeTheCops",
+			"callbackParams": "poopies",
+			"subMenu": ""
+		},
+		"GameSelect.DodgeTheJareds": {
+			"text": "Dodge The Jareds",
+			"subText": "Learn about child safety in this educational game!",
+			"callback": "OnGameSelect_DodgeTheJareds",
+			"callbackParams": "",
+			"subMenu": ""
+		},
+		"GameSelect.DodgeDeezNuts": {
+			"text": "Dodge Deez Nuts",
+			"subText": "A cautionary tale about the serious effects of allergies",
+			"callback": "OnGameSelect_DodgeDeezNuts",
+			"callbackParams": "",
+			"subMenu": ""
+		}
 	}
 }
