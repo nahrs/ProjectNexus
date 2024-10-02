@@ -6,9 +6,10 @@ func _ready() -> void:
 	DesignData.LoadTable(DesignData.CMenuDefinition.m_tableName)
 	DesignData.LoadTable(DesignData.CMenuItemDefinition.m_tableName)
 	
-	#PrintMenuData("MainMenu")
-	#PrintMenuData("OptionsMenu")
-	#PrintMenuData("GameSelectMenu")
+	PrintMenuData("MainMenu")
+	PrintMenuData("OptionsMenu")
+	PrintMenuData("GameSelectMenu")
+	PrintMenuData("Poopies")
 	
 	$MenuSystem.LoadMenu("MainMenu")
 	$MenuSystem.set_position(get_viewport_rect().size / 2)
@@ -16,10 +17,14 @@ func _ready() -> void:
 
 func PrintMenuData(menuKey:StringName):
 	var menuDef:DesignData.CMenuDefinition = DesignData.GetDefinition(DesignData.CMenuDefinition.m_tableName, menuKey)
-	
+	if(menuDef == null):
+		print("PrintMenuData - could not find menu definition for: ", menuKey)
+		return
 	print("table: ", menuDef.m_id.m_table)
 	print("key: ", menuDef.m_id.m_key)
 	print("header: ", menuDef.m_header)
+	
+	print( "menuDef to string: ", menuDef )
 	
 	for tableKey in menuDef.m_menuItems:
 		var menuItemDef:DesignData.CMenuItemDefinition = DesignData.GetDefinitionByTableKey(tableKey)

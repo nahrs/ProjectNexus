@@ -285,11 +285,16 @@ class CDesignDataManager :
 class CTableKey:
 	var m_table:StringName
 	var m_key:StringName
+	func _to_string() -> String:
+		return m_table + "[" + m_key + "]"
 
 ######################################################################################################
 
 class CBaseDefinition:
 	var m_id:CTableKey
+	
+	func _to_string() -> String:
+			return m_id._to_string()
 	
 	func SetTableKey(table:StringName, key:StringName) -> void:
 		m_id = CTableKey.new()
