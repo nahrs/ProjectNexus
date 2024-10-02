@@ -15,10 +15,10 @@ func _process(delta: float) -> void:
 
 # Add a menu 
 func LoadMenu(menuKey: String) -> bool:
-	#Load the definition for the menu.
-	var menuDefinition := DesignData.GetDefinition(DesignData.CMenuDefinition.m_tableName, menuKey) as DesignData.CMenuDefinition
-	if menuDefinition == null:
-		print(get_script().get_path(), "Failed to Load Menu ", DesignData.CMenuDefinition.m_tableName, "[", menuKey, "]")
+	#Load the data for the menu.
+	var menuData := DesignData.GetData(DesignData.CMenuData.m_tableName, menuKey) as DesignData.CMenuData
+	if menuData == null:
+		print(get_script().get_path(), "Failed to Load Menu ", DesignData.CMenuData.m_tableName, "[", menuKey, "]")
 		return false
 	
 	#clear prev buttons
@@ -26,19 +26,19 @@ func LoadMenu(menuKey: String) -> bool:
 		remove_child(button)
 	menuButtons.clear()
 	
-	#menuDefinition.m_header
+	#menuData.m_header
 	
-	#For each menuItem in the menu definition, add a menuItem UI object.
+	#For each menuItem in the menu data, add a menuItem UI object.
 	var menuItemCount = 0
-	for tableKey:DesignData.CTableKey in menuDefinition.m_menuItems:
-		var menuItemDef := DesignData.GetDefinitionByTableKey(tableKey) as DesignData.CMenuItemDefinition
-		if menuItemDef != null:
-			createMenuItemInterfaceElement(menuItemDef, menuItemCount, menuDefinition.m_menuItems.size())
+	for tableKey:DesignData.CTableKey in menuData.m_menuItems:
+		var menuItemData := DesignData.GetDataByTableKey(tableKey) as DesignData.CMenuItemData
+		if menuItemData != null:
+			createMenuItemInterfaceElement(menuItemData, menuItemCount, menuData.m_menuItems.size())
 			menuItemCount = menuItemCount + 1
 
 	return true
 
-func createMenuItemInterfaceElement(menuItem: DesignData.CMenuItemDefinition, index: int, totalButtons: int) -> void:
+func createMenuItemInterfaceElement(menuItem: DesignData.CMenuItemData, index: int, totalButtons: int) -> void:
 	var text = menuItem.m_text
 	var button = Button.new()
 	var padding = 3
@@ -55,7 +55,12 @@ func createMenuItemInterfaceElement(menuItem: DesignData.CMenuItemDefinition, in
 	menuButtons.append(button)
 
 func buttonPressed(id:DesignData.CTableKey) -> void:
-	var menuItemDef := DesignData.GetDefinitionByTableKey(id) as DesignData.CMenuItemDefinition
+	var menuItemDef := DesignData.GetDataByTableKey(id) as DesignData.CMenuItemData
+	
+	if menuItemDef == null:
+		print(get_script().get_path(), ":: unable to load MenuItemData for id: ", id)
+		return
+	
 	var subMenu := menuItemDef.m_subMenu
 	var callBack := menuItemDef.m_callBack
 	

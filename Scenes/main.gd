@@ -3,46 +3,53 @@ extends Node2D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
-	DesignData.LoadTable(DesignData.CMenuDefinition.m_tableName)
-	DesignData.LoadTable(DesignData.CMenuItemDefinition.m_tableName)
+	DesignData.LoadTable(DesignData.CUnitTestData.m_tableName)
+	DesignData.LoadTable(DesignData.CMenuData.m_tableName)
+	DesignData.LoadTable(DesignData.CMenuItemData.m_tableName)
 	
-	PrintMenuData("MainMenu")
-	PrintMenuData("OptionsMenu")
-	PrintMenuData("GameSelectMenu")
-	PrintMenuData("Poopies")
+	#PrintMenuData("MainMenu")
+	#PrintMenuData("OptionsMenu")
+	#PrintMenuData("GameSelectMenu")
+	#PrintMenuData("Poopies")
+	RunDesignDataUnitTest()
 	
 	$MenuSystem.LoadMenu("MainMenu")
 	$MenuSystem.set_position(get_viewport_rect().size / 2)
+
+func RunDesignDataUnitTest():
+	var unitData := DesignData.GetData(DesignData.CUnitTestData.m_tableName, "EntryOne") as DesignData.CUnitTestData
+	if unitData != null:
+		print(unitData.GetContents(), "\n")
+	else:
+		print("Could not find data for ", DesignData.CUnitTestData.m_tableName, " ", "EntryThree")
 	
+	unitData = DesignData.GetData(DesignData.CUnitTestData.m_tableName, "EntryTwo") as DesignData.CUnitTestData
+	if unitData != null:
+		print(unitData.GetContents(), "\n")
+	else:
+		print("Could not find data for ", DesignData.CUnitTestData.m_tableName, " ", "EntryThree")
+	
+	unitData = DesignData.GetData(DesignData.CUnitTestData.m_tableName, "EntryThree") as DesignData.CUnitTestData
+	if unitData != null:
+		print(unitData.GetContents(), "\n")
+	else:
+		print("Could not find data for ", DesignData.CUnitTestData.m_tableName, " ", "EntryThree")
 
 func PrintMenuData(menuKey:StringName):
-	var menuDef:DesignData.CMenuDefinition = DesignData.GetDefinition(DesignData.CMenuDefinition.m_tableName, menuKey)
+	var menuDef:DesignData.CMenuData = DesignData.GetData(DesignData.CMenuData.m_tableName, menuKey)
 	if(menuDef == null):
-		print("PrintMenuData - could not find menu definition for: ", menuKey)
+		print("PrintMenuData - could not find MenuData for: ", menuKey)
 		return
-	print("table: ", menuDef.m_id.m_table)
-	print("key: ", menuDef.m_id.m_key)
-	print("header: ", menuDef.m_header)
 	
-	print( "menuDef to string: ", menuDef )
+	print( menuDef.GetContents(), "\n" )
 	
 	for tableKey in menuDef.m_menuItems:
-		var menuItemDef:DesignData.CMenuItemDefinition = DesignData.GetDefinitionByTableKey(tableKey)
+		var menuItemDef:DesignData.CMenuItemData = DesignData.GetDataByTableKey(tableKey)
 		if menuItemDef == null:
 			continue
-			
-		print("\ttable: ", menuItemDef.m_id.m_table)
-		print("\tkey: ", menuItemDef.m_id.m_key)
-		print("\ttext: ", menuItemDef.m_text)
-		print("\tsubText: ", menuItemDef.m_subText)
-		print("\tcallBack: ", menuItemDef.m_callBack)
-		print("\tcallBackParams: ", menuItemDef.m_callBackParams)
-		if menuItemDef.m_subMenu.m_table.length() == 0:
-			print("\tsubMenu: " )
-		else:
-			print("\tsubMenu: ", menuItemDef.m_subMenu.m_table, "[", menuItemDef.m_subMenu.m_key, "]" )
+		print(menuItemDef.GetContents("\t"))
 		print("")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass

@@ -12,20 +12,21 @@ func LoadTable(table:StringName) -> bool:
 func UnloadTable(table:String) -> bool:
 	return m_DesignData.UnloadTable(table)
 
-func GetDefinition( table:StringName, key:StringName) -> CBaseDefinition:
-	return m_DesignData.GetDefinition(table, key)
+func GetData( table:StringName, key:StringName) -> CBaseData:
+	return m_DesignData.GetData(table, key)
 
-func GetDefinitionByTableKey( tableKey:CTableKey ) -> CBaseDefinition:
-	return GetDefinition(tableKey.m_table, tableKey.m_key)
+func GetDataByTableKey( tableKey:CTableKey ) -> CBaseData:
+	return m_DesignData.GetDataByTableKey(tableKey)
 
-func RegisterDefinitions() -> void:
-	m_DesignData.RegisterDefinitionType(CMenuDefinition.m_tableName, CMenuDefinition.m_fileName, CMenuDefinition )
-	m_DesignData.RegisterDefinitionType(CMenuItemDefinition.m_tableName, CMenuItemDefinition.m_fileName, CMenuItemDefinition )
+func RegisterDataTypes() -> void:
+	m_DesignData.RegisterDataType(CUnitTestData)
+	m_DesignData.RegisterDataType(CMenuData)
+	m_DesignData.RegisterDataType(CMenuItemData)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	m_DesignData = CDesignDataManager.new()
-	RegisterDefinitions()
+	RegisterDataTypes()
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -38,60 +39,60 @@ func _process(delta: float) -> void:
 
 class CDesignDataManager :
 	var m_dataTablesByName : Dictionary
-	var m_tableDefinitionsByName : Dictionary
+	var m_dataObjectTypesByName : Dictionary
 	
 	const cDataFieldTable:StringName = "table"
 	const cDataFieldKeys:StringName = "keys"
 	
-	func RegisterDefinitionType(tableName:StringName, fileName:String, definitionClass:GDScript ) -> void:
-		print("CDesignDataManager::RegisterDefinitionType table: ", tableName, " fileName: ", fileName )
-		m_tableDefinitionsByName[tableName] = [fileName,definitionClass]
+	func RegisterDataType(dataClass:GDScript) -> void:
+		print("CDesignDataManager::RegisterDataType table: ", dataClass.m_tableName, ", fileName: ", dataClass.m_fileName )
+		m_dataObjectTypesByName[dataClass.m_tableName] = [dataClass.m_fileName, dataClass]
 	
 	######################################################################################################
 	
-	func GetDefinition(table:StringName, key:StringName) -> CBaseDefinition:
+	func GetData(table:StringName, key:StringName) -> CBaseData:
 		if !m_dataTablesByName.has(table):
-			print("CDesignDataManager::GetDefinition unable to locate table ", table, " with key: ", key)
+			print("CDesignDataManager::GetData unable to locate table ", table, " with key: ", key)
 			return null
 		
 		var keys:Dictionary = m_dataTablesByName[table]
 		if !keys.has(key):
-			print("CDesignDataManager::GetDefinition unable to locate key ", key, " for table: ", table)
+			print("CDesignDataManager::GetData unable to locate key ", key, " for table: ", table)
 			return null
 		
 		return keys[key]
 	
 	######################################################################################################
 	
-	func GetDefinitionByTableKey(tableKey:CTableKey) -> CBaseDefinition:
-		return GetDefinition(tableKey.m_table, tableKey.m_key)
+	func GetDataByTableKey(tableKey:CTableKey) -> CBaseData:
+		return GetData(tableKey.m_table, tableKey.m_key)
 	
 	######################################################################################################
 	
-	func CreateDefinitionObject(tableName:StringName) -> CBaseDefinition:
+	func CreateDataObject(tableName:StringName) -> CBaseData:
 		#Make sure the linkings have been added for this table.
-		if !m_tableDefinitionsByName.has(tableName):
-			print("CDesignDataManager::CreateDefinitionObject - ERROR no entry in m_tableDefinitionsByName defined for table: ", tableName)
+		if !m_dataObjectTypesByName.has(tableName):
+			print("CDesignDataManager::CreateDataObject - ERROR no entry in m_dataObjectTypesByName defined for table: ", tableName)
 			return null
 		
 		#Make sure the linking has correctly bound a class to the table name
-		var script := m_tableDefinitionsByName[tableName][1] as GDScript
+		var script := m_dataObjectTypesByName[tableName][1] as GDScript
 		if script == null:
-			print("CDesignDataManager::CreateDefinitionObject - ERROR failed to create script for table:", tableName)
+			print("CDesignDataManager::CreateDataObject - ERROR failed to create script for table:", tableName)
 			return null
 		
-		#return the newly crafted definition data
+		#return the newly crafted data object
 		return script.new()
 	
 	######################################################################################################
 	
 	func GetTableFileName(tableName:StringName) -> String:
 		#Make sure the linkings have been added for this table.
-		if m_tableDefinitionsByName.has(tableName) == false:
-			print("CDesignDataManager::GetTableFileName - ERROR no entry in m_tableDefinitionsByName defined for table: ", tableName)
+		if m_dataObjectTypesByName.has(tableName) == false:
+			print("CDesignDataManager::GetTableFileName - ERROR no entry in m_dataObjectTypesByName defined for table: ", tableName)
 			return ""
 		
-		return m_tableDefinitionsByName[tableName][0] as String
+		return m_dataObjectTypesByName[tableName][0] as String
 	
 	######################################################################################################
 	
@@ -118,7 +119,7 @@ class CDesignDataManager :
 			return false
 		
 		if typeof(jsonParser.data) != TYPE_DICTIONARY:
-			print("CDesignDataManager::LoadTable - ERROR loading table: ", tableName, "Root node should be type dictionary. Current type: ", typeof(jsonParser.data))
+			print("CDesignDataManager::LoadTable - ERROR loading table: ", tableName, "Root node should be type dictionary. Current type: ", type_string(typeof(jsonParser.data)))
 			return false
 		
 		var root := jsonParser.data as Dictionary
@@ -131,50 +132,50 @@ class CDesignDataManager :
 			print("CDesignDataManager::LoadTable - ERROR loading table: ", tableName, "Root node missing field : \"", cDataFieldTable, "\"" )
 			return false
 		
-		var dTable = root[cDataFieldTable]
-		var dKeys = root[cDataFieldKeys]
+		var jsonTableName = root[cDataFieldTable]
+		var jsonKeys = root[cDataFieldKeys]
 		
-		if typeof(dTable) != TYPE_STRING:
-			print("CDesignDataManager::LoadTable - ERROR loading table: ", tableName, " Root node \"", cDataFieldTable, "\" incorrect type: ", typeof(dTable), " expected string" )
+		if typeof(jsonTableName) != TYPE_STRING:
+			print("CDesignDataManager::LoadTable - ERROR loading table: ", tableName, " Root node \"", cDataFieldTable, "\" incorrect type: ", type_string(typeof(jsonTableName)), " expected string" )
 			return false
 		
-		dTable = dTable as String
+		jsonTableName = jsonTableName as String
 		
-		if dTable != tableName:
+		if jsonTableName != tableName:
 			print("CDesignDataManager::LoadTable - ERROR loading table: ", tableName, " Root node \"", cDataFieldTable, "\" does not match expected: ", tableName )
 			return false
 		
-		if(typeof(dKeys) != TYPE_DICTIONARY):
-			print("CDesignDataManager::LoadTable - ERROR loading table: ", tableName, " Root node \"", cDataFieldKeys, "\" incorrect type: ", typeof(dKeys), " expected dictionary" )
+		if(typeof(jsonKeys) != TYPE_DICTIONARY):
+			print("CDesignDataManager::LoadTable - ERROR loading table: ", tableName, " Root node \"", cDataFieldKeys, "\" incorrect type: ", type_string(typeof(jsonKeys)), " expected dictionary" )
 			return false
 		
-		dKeys = dKeys as Dictionary
+		jsonKeys = jsonKeys as Dictionary
 		
-		if dKeys.size() == 0:
+		if jsonKeys.size() == 0:
 			print("CDesignDataManager::LoadTable - ERROR loading table: ", tableName, "\"", cDataFieldKeys, "\" is a dictionary, but it has no entries")
 			return false
 		
 		if !m_dataTablesByName.has(tableName):
 			m_dataTablesByName[tableName] = {}
 			
-		var keyTable:Dictionary = m_dataTablesByName[tableName] 
-		var definitionsLoaded = 0
-		for dKey in dKeys: 
-			var definitionData = dKeys[dKey]
-			if typeof(definitionData) != TYPE_DICTIONARY:
-				print("CDesignDataManager::LoadTable - ERROR loading table: ", tableName, " for key: ", dKey, "expected type dictionary. actual", typeof(definitionData) )
+		var keyDataTable:Dictionary = m_dataTablesByName[tableName] 
+		var keyDataLoaded = 0
+		for jsonKey in jsonKeys:
+			var jsonKeyData = jsonKeys[jsonKey]
+			if typeof(jsonKeyData) != TYPE_DICTIONARY:
+				print("CDesignDataManager::LoadTable - ERROR loading table: ", tableName, " for key: ", jsonKey, "expected type dictionary. actual", type_string(typeof(jsonKeyData)) )
 				continue
 			
-			var newDefinition:CBaseDefinition = CreateDefinitionObject(dTable)
-			if newDefinition == null:
-				print("CDesignDataManager::LoadTable - ERROR loading table: ", tableName, " for key: ", dKey, " failed to create object definition" )
+			var newDataObject:CBaseData = CreateDataObject(jsonTableName)
+			if newDataObject == null:
+				print("CDesignDataManager::LoadTable - ERROR loading table: ", tableName, " for key: ", jsonKey, " failed to create object data" )
 				continue
 			
-			newDefinition.LoadData(dKey,definitionData)			
-			keyTable[dKey] = newDefinition
-			definitionsLoaded = definitionsLoaded + 1
+			newDataObject.LoadData(jsonKey,jsonKeyData)
+			keyDataTable[jsonKey] = newDataObject
+			keyDataLoaded = keyDataLoaded + 1
 		
-		if definitionsLoaded == 0:
+		if keyDataLoaded == 0:
 			print("CDesignDataManager::LoadTable - ERROR loading table: ", tableName, " no valid key data was found")
 			return false
 		
@@ -190,21 +191,6 @@ class CDesignDataManager :
 		else:
 			print("CDesignDataManager::UnloadTable - ERROR! could not locate table: ", tableName )
 			return false
-	
-	######################################################################################################
-	
-	static func LoadJsonString(jsonTable:Dictionary, fieldName:StringName) -> String:
-		#make sure the json blob has the field we want.
-		if !jsonTable.has(fieldName):
-			print("CDesignDataManager::LoadJsonString - could not find field: ", fieldName)
-			return ""
-		
-		# make sure the json blob has the expected data type.
-		if typeof(jsonTable[fieldName]) != TYPE_STRING:
-			print("CDesignDataManager::LoadJsonString - field ", fieldName, " was not of type string")
-			return ""
-		
-		return jsonTable[fieldName]
 	
 	######################################################################################################
 	
@@ -230,6 +216,57 @@ class CDesignDataManager :
 	
 	######################################################################################################
 	
+	static func LoadJsonInt(jsonTable:Dictionary, fieldName:StringName) -> int:
+				#make sure the json blob has the field we want.
+		if !jsonTable.has(fieldName):
+			print("CDesignDataManager::LoadJsonInt - could not find field: ", fieldName)
+			return 0
+		
+		var data:Variant = jsonTable[fieldName]
+		
+		# make sure the json blob has the expected data type.
+		if (typeof(data) != TYPE_INT) && (typeof(data) != TYPE_FLOAT):
+			print("CDesignDataManager::LoadJsonInt - field ", fieldName, " expected int, actual: ", type_string(typeof(data)) )
+			return 0
+		
+		return data as int
+	
+	######################################################################################################
+	
+	static func LoadJsonFloat(jsonTable:Dictionary, fieldName:StringName) -> float:
+		#make sure the json blob has the field we want.
+		if !jsonTable.has(fieldName):
+			print("CDesignDataManager::LoadJsonFloat - could not find field: ", fieldName)
+			return 0.0
+		
+		var data:Variant = jsonTable[fieldName]
+		
+		# make sure the json blob has the expected data type.
+		if typeof(data) != TYPE_FLOAT:
+			print("CDesignDataManager::LoadJsonFloat - field ", fieldName, " expected float, actual: ", type_string(typeof(data)) )
+			return 0.0
+		
+		return data as float
+	
+	######################################################################################################
+	
+	static func LoadJsonString(jsonTable:Dictionary, fieldName:StringName) -> String:
+		#make sure the json blob has the field we want.
+		if !jsonTable.has(fieldName):
+			print("CDesignDataManager::LoadJsonString - could not find field: ", fieldName)
+			return ""
+		
+		var data:Variant = jsonTable[fieldName]
+		
+		# make sure the json blob has the expected data type.
+		if typeof(jsonTable[fieldName]) != TYPE_STRING:
+			print("CDesignDataManager::LoadJsonString - field ", fieldName, " was not of type string")
+			return ""
+		
+		return data as String
+	
+	######################################################################################################
+	
 	static func LoadJsonTableKey(jsonTable:Dictionary, fieldName:StringName) -> CTableKey:
 		#make sure the json blob has the field we want.
 		if !jsonTable.has(fieldName):
@@ -247,25 +284,58 @@ class CDesignDataManager :
 	
 	######################################################################################################
 	
-	static func LoadJsonTableKeyArray(jsonTable:Dictionary, fieldName:StringName) -> Array[CTableKey]:
-		#make sure the json blob has the field we want.
-		if !jsonTable.has(fieldName):
-			print("CDesignDataManager::LoadJsonTableKey - could not find field: ", fieldName)
-			return []
+	static func LoadJsonIntArray(jsonTable:Dictionary, fieldName:StringName) -> Array[int]:
+		var array := InternalLoadJsonArray(jsonTable, fieldName)
+		var intArray:Array[int]
 		
-		# make sure the json blob has the expected data type.
-		if typeof(jsonTable[fieldName]) != TYPE_ARRAY:
-			print("CDesignDataManager::LoadJsonTableKey - field ", fieldName, " was not of type array")
-			return []
+		for entry in array:
+			if typeof(entry) != TYPE_INT && typeof(entry) != TYPE_FLOAT:
+				print("CDesignDataManager::LoadJsonIntArray array contents contains invalid type: ", type_string(typeof(entry)))
+				continue
+			intArray.push_back(entry as int)
+		
+		return intArray
+	
+	######################################################################################################
+	
+	static func LoadJsonFloatArray(jsonTable:Dictionary, fieldName:StringName) -> Array[float]:
+		var array := InternalLoadJsonArray(jsonTable, fieldName)
+		var floatArray:Array[float]
+		
+		for entry in array:
+			if typeof(entry) != TYPE_FLOAT:
+				print("CDesignDataManager::LoadJsonFloatArray array contents contains invalid type: ", type_string(typeof(entry)))
+				continue
+			floatArray.push_back(entry as float)
+		
+		return floatArray
+	
+	######################################################################################################
+	
+	static func LoadJsonStringArray(jsonTable:Dictionary, fieldName:StringName) -> Array[String]:
+		var array := InternalLoadJsonArray(jsonTable, fieldName)
+		var strArr:Array[String]
+		
+		for entry in array:
+			if typeof(entry) != TYPE_STRING:
+				print("CDesignDataManager::LoadJsonStringArray array contents contains invalid type: ", type_string(typeof(entry)))
+				continue
+			strArr.push_back(entry as String)
+		
+		return strArr
+	
+	######################################################################################################
+	
+	static func LoadJsonTableKeyArray(jsonTable:Dictionary, fieldName:StringName) -> Array[CTableKey]:
+		var strArr := InternalLoadJsonArray(jsonTable, fieldName)
 		
 		#build the array of CTableKey links
 		var tableKeyArr: Array[CTableKey]
-		var strArr:Array = jsonTable[fieldName]
-		for str in strArr:
-			if typeof(str) != TYPE_STRING:
+		for jStr in strArr:
+			if typeof(jStr) != TYPE_STRING:
 				print("CDesignDataManager::LoadJsonTableKeyArray - field ", fieldName, " was not of String")
 				continue
-			var key := GetTableKeyFromString(str as String)
+			var key := GetTableKeyFromString(jStr as String)
 			if key.m_table.length() == 0:
 				print("CDesignDataManager::LoadJsonTableKeyArray - field ", fieldName, " failed to create tableKey, invalid table, expected format \"table[key]\"")
 				key.free()
@@ -277,6 +347,21 @@ class CDesignDataManager :
 			tableKeyArr.push_back(key)
 		
 		return tableKeyArr
+	
+	static func InternalLoadJsonArray(jsonTable:Dictionary, fieldName:StringName) -> Array:
+		#make sure the json blob has the field we want.
+		if !jsonTable.has(fieldName):
+			print("CDesignDataManager::InternalLoadJsonArray - could not find field: ", fieldName)
+			return []
+		
+		var jsonArry:Variant = jsonTable[fieldName]
+		
+		# make sure the json blob has the expected data type.
+		if typeof(jsonTable[fieldName]) != TYPE_ARRAY:
+			print("CDesignDataManager::InternalLoadJsonArray - field ", fieldName, " was not of type array")
+			return []
+		
+		return jsonArry as Array
 
 ######################################################################################################
 ######################################################################################################
@@ -286,42 +371,97 @@ class CTableKey:
 	var m_table:StringName
 	var m_key:StringName
 	func _to_string() -> String:
+		if m_table.is_empty() && m_key.is_empty():
+			return ""
 		return m_table + "[" + m_key + "]"
 
 ######################################################################################################
 
-class CBaseDefinition:
+class CBaseData:
 	var m_id:CTableKey
 	
 	func _to_string() -> String:
-			return m_id._to_string()
+			return str(m_id)
 	
 	func SetTableKey(table:StringName, key:StringName) -> void:
-		m_id = CTableKey.new()
+		if m_id == null:
+			m_id = CTableKey.new()
 		m_id.m_table = table
 		m_id.m_key = key
 	
-	#Override this function for new definition tables.
-	func LoadData(key:StringName, jsonData:Dictionary) -> void:
-		print("CBaseDefinition::LoadData - ERROR Definition missing LoadData func override!")
+	static func GetFieldString( prefix:String, dataName:String, value:Variant) -> String:
+		return str("\n", prefix, dataName, ": ", value)
+	
+	#Override This to allow print contents
+	func GetContents(prefix:String = "") -> String:
+		return str(prefix, "id: ", m_id)
+	
+	#Override this to load your deisgn data from json.
+	func LoadData(_key:StringName, _jsonData:Dictionary) -> void:
+		print("CBaseData::LoadData - ERROR Data missing LoadData func override!")
 
 ######################################################################################################
 
-class CMenuDefinition extends CBaseDefinition:
+class CUnitTestData extends CBaseData:
+	static var m_tableName:StringName = "UnitTest"
+	static var m_fileName:String = "res://GameData/DesignData/DesignData.UnitTest.json"
+	
+	var m_intVar:int
+	var m_floatVar:float
+	var m_stringVar:String
+	var m_tableKeyVar:CTableKey
+	
+	var m_intArr:Array[int]
+	var m_floatArr:Array[float]
+	var m_stringArr:Array[String]
+	var m_tableKeyArr:Array[CTableKey]
+
+	func LoadData(key:StringName, jsonData:Dictionary) -> void:
+		SetTableKey(m_tableName, key)
+		m_intVar = CDesignDataManager.LoadJsonInt(jsonData, "intVar")
+		m_floatVar = CDesignDataManager.LoadJsonFloat(jsonData, "floatVar")
+		m_stringVar = CDesignDataManager.LoadJsonString(jsonData, "stringVar")
+		m_tableKeyVar = CDesignDataManager.LoadJsonTableKey(jsonData, "tableKeyVar")
+		m_intArr = CDesignDataManager.LoadJsonIntArray(jsonData, "intArr")
+		m_floatArr = CDesignDataManager.LoadJsonFloatArray(jsonData, "floatArr")
+		m_stringArr = CDesignDataManager.LoadJsonStringArray(jsonData, "stringArr")
+		m_tableKeyArr = CDesignDataManager.LoadJsonTableKeyArray(jsonData, "tableKeyArr")
+	
+	func GetContents(prefix:String = "") -> String:
+		var contents = str( super(prefix)
+			, GetFieldString(prefix, "intVar: ", m_intVar)
+			, GetFieldString(prefix, "floatVar: ", m_floatVar)
+			, GetFieldString(prefix, "stringVar: ", m_stringVar)
+			, GetFieldString(prefix, "tableKeyVar: ", m_tableKeyVar)
+			, GetFieldString(prefix, "intArr: ", m_intArr)
+			, GetFieldString(prefix, "floatArr: ", m_floatArr)
+			, GetFieldString(prefix, "stringArr: ", m_stringArr)
+			, GetFieldString(prefix, "tableKeyArr: ", m_tableKeyArr) )
+		return contents
+
+######################################################################################################
+
+class CMenuData extends CBaseData:
 	static var m_tableName:StringName = "Menu"
 	static var m_fileName:String = "res://GameData/DesignData/DesignData.Menu.json"
 	
 	var m_header:String
 	var m_menuItems: Array[CTableKey]
-	
+
 	func LoadData(key:StringName, jsonData:Dictionary) -> void:
 		SetTableKey(m_tableName, key)
 		m_header = CDesignDataManager.LoadJsonString(jsonData, "header")
 		m_menuItems = CDesignDataManager.LoadJsonTableKeyArray(jsonData, "menuItems")
 
+	func GetContents(prefix:String = "") -> String:
+		var contents = str( super(prefix)
+			, GetFieldString(prefix, "header", m_header)
+			, GetFieldString(prefix, "menuItems", m_menuItems))
+		return contents
+
 ######################################################################################################
 
-class CMenuItemDefinition extends CBaseDefinition:
+class CMenuItemData extends CBaseData:
 	static var m_tableName:StringName = "MenuItem"
 	static var m_fileName:String = "res://GameData/DesignData/DesignData.MenuItem.json"
 	
@@ -338,3 +478,12 @@ class CMenuItemDefinition extends CBaseDefinition:
 		m_callBack = CDesignDataManager.LoadJsonString(jsonData, "callback")
 		m_callBackParams = CDesignDataManager.LoadJsonString(jsonData, "callbackParams")
 		m_subMenu = CDesignDataManager.LoadJsonTableKey(jsonData, "subMenu")
+	
+	func GetContents(prefix:String = "") -> String:
+		var contents = str( super(prefix)
+			, GetFieldString(prefix, "text", m_text)
+			, GetFieldString(prefix, "subText", m_subText)
+			, GetFieldString(prefix, "callback", m_callBack)
+			, GetFieldString(prefix, "callbackParams", m_callBackParams)
+			, GetFieldString(prefix, "subMenu", m_subMenu))
+		return contents
