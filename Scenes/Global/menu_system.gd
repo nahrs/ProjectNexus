@@ -43,22 +43,22 @@ func LoadMenu(definitionName: String) -> bool:
 	#
 	##poops hehe.
 	#
-	#print("data:", type_string(typeof(jsonParser.data)) )
+	#print_debug("data:", type_string(typeof(jsonParser.data)) )
 	#for menuObj:Variant in jsonParser.data:
-		#print("menuObj: ", type_string(typeof(menuObj)))
+		#print_debug("menuObj: ", type_string(typeof(menuObj)))
 		#var subObj = jsonParser.data[menuObj]
-		#print("subObj: ", type_string(typeof(subObj)))
+		#print_debug("subObj: ", type_string(typeof(subObj)))
 		#if typeof(subObj) == TYPE_ARRAY:
-			#print("\t",menuObj, ":")
+			#print_debug("\t",menuObj, ":")
 			#for element in subObj:
-				#print("element:", type_string(typeof(element)))
+				#print_debug("element:", type_string(typeof(element)))
 				#if typeof(element) == TYPE_DICTIONARY:
 					#for subElement in element:
-						#print("\t\t", subElement, ": ", element[subElement])
+						#print_debug("\t\t", subElement, ": ", element[subElement])
 				#else:
-					#print(element)
+					#print_debug(element)
 		#else:
-			#print(menuObj, " ", subObj)
+			#print_debug(menuObj, " ", subObj)
 			#
 	return true
 
@@ -84,9 +84,8 @@ func buttonPressed(id: String) -> void:
 	var callBack :String = DesignData.GetString(DesignData.CMenuItem.cTableName,id, DesignData.CMenuItem.cFieldCallback)
 	
 	if (callBack.length() > 0):
-		print(self.has_method(callBack))
 		if (!self.has_method(callBack)):
-			print(get_script().get_path(), ":: callback: ", callBack, " not found for id: ", id)
+			print_debug(get_script().get_path(), ":: callback: ", callBack, " not found for id: ", id)
 		else:
 			self.call(callBack)
 	
@@ -96,7 +95,7 @@ func buttonPressed(id: String) -> void:
 			if (menuTable.length() > 0 && menuTable != "ERROR"):
 				LoadMenu(menuTable)
 		else:
-			print(get_script().get_path(), ":: table link: ", tableLink, " not found for id: ", id)
+			print_debug(get_script().get_path(), ":: table link: ", tableLink, " not found for id: ", id)
 
 func quitGame() -> void:
 	get_tree().quit()
@@ -124,13 +123,13 @@ class CMenuDataManager:
 			
 	func AddMenuData( id:int, obj:CMenu) -> void:
 		if m_menusById.has(id):
-			print("ERROR")
+			print_debug("ERROR")
 		else:
 			m_menusById[id] = obj
 		
 	func AddMenuItemData( id:int, obj:CMenuItem) -> void:
 		if m_menuItemsById.has(id):
-			print("ERROR")
+			print_debug("ERROR")
 		else:
 			m_menuItemsById[id] = obj
 
@@ -143,7 +142,7 @@ class CMenu:
 	
 	func AddMenuObject(id:int) ->void:
 		if m_objects.has(id):
-			print("CMenu::AddMenuObject - trying to add menu object that already exists: ", id)
+			print_debug("CMenu::AddMenuObject - trying to add menu object that already exists: ", id)
 		else:
 			m_objects.append(id)
 

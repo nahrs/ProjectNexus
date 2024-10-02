@@ -7,10 +7,10 @@ var CMenu : IMenuDefines
 
 func IsValidData(data:Variant, expectedType:int) -> bool:
 	if data == null:
-		print("DesignData.IsValidData null data! " )
+		print_debug(":: failed! null data! " )
 		return false
 	elif typeof(data) != expectedType:
-		print("DesignData.IsValidData expected type ", type_string(expectedType), " actual: ", type_string(typeof(data)) )
+		print_debug(":: failed! expected type ", type_string(expectedType), " actual: ", type_string(typeof(data)) )
 		return false
 	else:
 		return true
@@ -23,7 +23,7 @@ func GetString(table:String, definition:String, field:String)->String:
 	if IsValidData(data, TYPE_STRING):
 		return data;
 	else:
-		print("DesignData.GetString - failed! ", m_DesignData.GetFieldPath(table, definition, field))
+		print_debug(":: failed! ", m_DesignData.GetFieldPath(table, definition, field))
 		return "ERROR"
 
 func GetFloat(table:String, definition:String, field:String)->float:
@@ -31,7 +31,7 @@ func GetFloat(table:String, definition:String, field:String)->float:
 	if IsValidData(data, TYPE_FLOAT):
 		return data;
 	else:
-		print("DesignData.GetFloat - failed! ", m_DesignData.GetFieldPath(table, definition, field))
+		print_debug(":: failed! ", m_DesignData.GetFieldPath(table, definition, field))
 		return 0.0
 
 func GetInt(table:String, definition:String, field:String)->int:
@@ -39,7 +39,7 @@ func GetInt(table:String, definition:String, field:String)->int:
 	if IsValidData(data, TYPE_INT):
 		return data;
 	else:
-		print("DesignData.GetInt - failed! ", m_DesignData.GetFieldPath(table, definition, field))
+		print_debug(":: failed! ", m_DesignData.GetFieldPath(table, definition, field))
 		return 0
 
 func GetArray(table:String, definition:String, field:String)->Array:
@@ -47,7 +47,7 @@ func GetArray(table:String, definition:String, field:String)->Array:
 	if IsValidData(data, TYPE_ARRAY):
 		return data;
 	else:
-		print("DesignData.GetArray - failed! ", m_DesignData.GetFieldPath(table, definition, field))
+		print_debug(":: failed! ", m_DesignData.GetFieldPath(table, definition, field))
 		return []
 
 func GetDefinition(table:String, definition:String) ->Dictionary:
@@ -55,7 +55,7 @@ func GetDefinition(table:String, definition:String) ->Dictionary:
 	if IsValidData(data, TYPE_DICTIONARY):
 		return data;
 	else:
-		print("DesignData.GetDefinition - failed! ", m_DesignData.GetTableLink(table,definition))
+		print_debug(":: failed! ", m_DesignData.GetTableLink(table,definition))
 		return {}
 
 func GetDataByTableLink(tableLink:String, field:String)->Variant:
@@ -93,7 +93,7 @@ func GetDefinitionByTableLink(tableLink:String)->Dictionary:
 	if sArr.size()==2:
 		return	m_DesignData.GetDefinition(sArr[0], sArr[1])
 	else:
-		print("DesignData.GetDefinitionByTableLink - ERROR! invalid table link, not formatted correctly: ", tableLink )
+		print_debug(":: ERROR! invalid table link, not formatted correctly: ", tableLink )
 		return {}
 
 func LoadDesignData(fileName:String) -> bool:
@@ -128,18 +128,18 @@ class IDesignDataManager :
 		#m_dataTablesByName.make_read_only()
 		var designName := GetDesignName(fileName)
 		if m_dataTablesByName.has(designName):
-			print("IDesignDataManager::LoadTable - ERROR! tried to load table that has already been loaded ", designName )
+			print_debug(":: ERROR! tried to load table that has already been loaded ", designName )
 			return false
 		else:
 			var jsonFile := FileAccess.open(fileName, FileAccess.READ)
 			if jsonFile == null:
-				print("IDesignDataManager::LoadTable - failed to read file: ", fileName )
+				print_debug(":: failed! failed to read file: ", fileName )
 				return false
 			
 			var jsonParser:JSON = JSON.new()
 			var errorCode := jsonParser.parse(jsonFile.get_as_text())
 			if errorCode != OK:
-				print("IDesignDataManager::LoadTable - load failure: ", designName, " ErrorCode: ", errorCode )
+				print_debug(":: failed! load failure: ", designName, " ErrorCode: ", errorCode )
 				return false
 			else:
 				#Store this design data in our lookup table. strip all the json bullshit.
@@ -157,20 +157,20 @@ class IDesignDataManager :
 							#This will prevent a user from accidentally changing definition data, which could cause very strange behavior.
 							definition.make_read_only()
 						else:
-							print("IDesignDataManager::LoadTable - failure definition should be of type dictionary")
-					print("IDesignDataManager::LoadTable - load success: ", designName )
+							print_debug(":: failed! failure definition should be of type dictionary")
+					print_debug(":: load success: ", designName )
 				else:
-					print("IDesignDataManager::LoadTable - load failure: ", designName, " expected root type dictionary, got ", type_string(typeof(jsonParser.data)))
+					print_debug(":: failed! load failure: ", designName, " expected root type dictionary, got ", type_string(typeof(jsonParser.data)))
 			return false
 	
 	func UnloadTable(fileName:String)->bool:
 		var designName := GetDesignName(fileName)
 		if m_dataTablesByName.has(designName):
 			m_dataTablesByName.erase(designName)
-			print("IDesignDataManager::Unloaded - successfully unloaded ", designName )
+			print_debug(":: Unloaded - successfully unloaded ", designName )
 			return true
 		else:
-			print("IDesignDataManager::Unloaded - ERROR! file not loaded: ", fileName )
+			print_debug(":: failed! Unloaded - ERROR! file not loaded: ", fileName )
 			return false
 	
 	func GetDataByDesignPath(designPath:String) -> Variant:
@@ -178,7 +178,7 @@ class IDesignDataManager :
 		if arr.size() == 3:
 			return GetData(arr[0], arr[1], arr[2])
 		else:
-			print("IDesignDataManager::GetDataByDesignPath - ERROR! invalid design path: ", designPath, " correct format = <tableName>/<definitionName>/<fieldName>")
+			print_debug(":: ERROR! invalid design path: ", designPath, " correct format = <tableName>/<definitionName>/<fieldName>")
 			return null
 	
 	func GetData(table:String, definition:String, field:String) -> Variant:
@@ -189,11 +189,11 @@ class IDesignDataManager :
 				if d.has(field):
 					return d[field]
 				else:
-					print("IDesignDataManager::GetData - ERROR! could not locate field", table, "/", definition, "/", field)
+					print_debug(":: ERROR! could not locate field", table, "/", definition, "/", field)
 			else:
-				print("IDesignDataManager::GetData - ERROR! could not locate definition ", table, "/", definition, "/", field)
+				print_debug(":: ERROR! could not locate definition ", table, "/", definition, "/", field)
 		else:
-			print("IDesignDataManager::GetData - ERROR! could not locate table: ", table, "/", definition, "/", field)
+			print_debug(":: ERROR! could not locate table: ", table, "/", definition, "/", field)
 		return 0
 	
 	func GetDefinition(table:String, definition:String) -> Dictionary:
@@ -204,11 +204,11 @@ class IDesignDataManager :
 				if typeof(d) == TYPE_DICTIONARY:
 					return d
 				else:
-					print("IDesignDataManager::GetDefinition - ERROR! incorrect type! ", type_string(typeof(d)), " ", table, "/", definition)
+					print_debug(":: ERROR! incorrect type! ", type_string(typeof(d)), " ", table, "/", definition)
 			else:
-				print("IDesignDataManager::GetDefinition - ERROR! could not locate definition ", table, "/", definition)
+				print_debug(":: ERROR! could not locate definition ", table, "/", definition)
 		else:
-			print("IDesignDataManager::GetDefinition - ERROR! could not locate table: ", table, "/", definition)
+			print_debug(":: ERROR! could not locate table: ", table, "/", definition)
 		return {}
 
 #defines the functionality, display, and name of a single item in the menu.
