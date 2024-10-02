@@ -91,10 +91,12 @@ func buttonPressed(id: String) -> void:
 			self.call(callBack)
 	
 	if (tableLink.length() > 0):
-		var menuTable: String = DesignData.GetStringByTableLink(tableLink,DesignData.cIdField)
-		if (menuTable.length() > 0):
-			LoadMenu(menuTable)
-
+		if (DesignData.IsValidData(tableLink, typeof(tableLink))):
+			var menuTable: String = DesignData.GetStringByTableLink(tableLink,DesignData.cIdField)
+			if (menuTable.length() > 0 && menuTable != "ERROR"):
+				LoadMenu(menuTable)
+		else:
+			print(get_script().get_path(), ":: table link: ", tableLink, " not found for id: ", id)
 
 func quitGame() -> void:
 	get_tree().quit()
