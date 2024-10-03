@@ -2,7 +2,7 @@ extends Node2D
 
 signal OnMenuItemSelected
 
-var menuButtons :Array
+var g_menuButtons :Array
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -22,9 +22,7 @@ func LoadMenu(menuKey: String) -> bool:
 		return false
 	
 	#clear prev buttons
-	for button in menuButtons:
-		remove_child(button)
-	menuButtons.clear()
+	ClearMenuItems()
 	
 	#menuData.m_header
 	
@@ -52,7 +50,7 @@ func createMenuItemInterfaceElement(menuItem: DesignData.CMenuItemData, index: i
 	button.set_position(Vector2(xpos, ypos))
 	button.pressed.connect(self.buttonPressed.bind(menuItem.m_id))
 	
-	menuButtons.append(button)
+	g_menuButtons.append(button)
 
 func buttonPressed(id:DesignData.CTableKey) -> void:
 	var menuItemDef := DesignData.GetDataByTableKey(id) as DesignData.CMenuItemData
@@ -78,6 +76,8 @@ func quitGame() -> void:
 	get_tree().quit()
 
 func ClearMenuItems() -> void:
-	pass
+	for button in g_menuButtons:
+		remove_child(button)
+	g_menuButtons.clear()
 
 #######################################################################################
