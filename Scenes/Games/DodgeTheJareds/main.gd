@@ -17,17 +17,6 @@ var isDead: bool = false
 @warning_ignore("unused_parameter")
 
 func _ready() -> void:
-	preload("res://Scenes/Games/DodgeTheJareds/player.gd").new()
-	preload("res://Scenes/Games/DodgeTheJareds/hud.tscn")
-	preload("res://Scenes/Games/DodgeTheJareds/laser.tscn")
-	preload("res://Scenes/Games/DodgeTheJareds/jared1.tscn")
-	preload("res://Scenes/Games/DodgeTheJareds/jared2.tscn")
-	preload("res://Scenes/Games/DodgeTheJareds/jared3.tscn")
-	preload("res://Scenes/Games/DodgeTheJareds/jaredLeto2.tscn")
-	preload("res://Scenes/Games/DodgeTheJareds/jaredLeto3.tscn")
-	preload("res://Scenes/Games/DodgeTheJareds/jaredLeto.tscn")
-	preload("res://Scenes/Games/DodgeTheJareds/mob.tscn")
-	
 	$Music.play()
 	
 	$HUD/StartButton.connect("pressed",newGame)
