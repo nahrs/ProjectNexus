@@ -1,0 +1,85 @@
+[gd_scene load_steps=12 format=3 uid="uid://dla6lyshowvkq"]
+
+[ext_resource type="Script" path="res://Scenes/Games/DodgeTheJareds/Player.gd" id="1_3rtvh"]
+[ext_resource type="Texture2D" uid="uid://cipaiq43kwe0y" path="res://Scenes/Games/DodgeTheJareds/art/6107167.png" id="2_01kdu"]
+[ext_resource type="AudioStream" uid="uid://74u75xvvmxb1" path="res://Scenes/Games/DodgeTheJareds/art/audio/Laser Fire/laserfire01.ogg" id="3_f4386"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nswnv"]
+atlas = ExtResource("2_01kdu")
+region = Rect2(3, 0, 432, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ndtvh"]
+atlas = ExtResource("2_01kdu")
+region = Rect2(3, 100, 432, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qup3n"]
+atlas = ExtResource("2_01kdu")
+region = Rect2(3, 200, 432, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m4ofp"]
+atlas = ExtResource("2_01kdu")
+region = Rect2(3, 300, 432, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tq0ab"]
+atlas = ExtResource("2_01kdu")
+region = Rect2(3, 400, 432, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nyxxg"]
+atlas = ExtResource("2_01kdu")
+region = Rect2(3, 500, 432, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bsok3"]
+atlas = ExtResource("2_01kdu")
+region = Rect2(3, 600, 432, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_laqt3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nswnv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ndtvh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qup3n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m4ofp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tq0ab")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nyxxg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bsok3")
+}],
+"loop": true,
+"name": &"up",
+"speed": 13.0
+}]
+
+[node name="Player" type="Area2D"]
+position = Vector2(463, 259)
+script = ExtResource("1_3rtvh")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(4, 4)
+scale = Vector2(0.32879, 0.331019)
+sprite_frames = SubResource("SpriteFrames_laqt3")
+animation = &"up"
+frame_progress = 0.154434
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-19.4024, -2.35715)
+scale = Vector2(0.802419, 0.863128)
+polygon = PackedVector2Array(25.4261, -2.56232, 103.939, -2.56232, 105.185, 19.8699, -50.594, 21.1161, -49.3478, -1.31607)
+
+[node name="laserShot" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_f4386")
+volume_db = -2.63
+max_polyphony = 5
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
