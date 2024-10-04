@@ -13,6 +13,8 @@ func _ready() -> void:
 	AddKeybind("menu_nav_down", KEY_S)
 	AddKeybind("menu_selected", KEY_ENTER)
 	AddKeybind("menu_selected", KEY_KP_ENTER)
+	AddKeybind("menu_back", KEY_ESCAPE)
+	AddKeybind("menu_back", KEY_BACKSPACE)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -28,6 +30,7 @@ func _exit_tree() -> void:
 	RemoveKeybind("menu_nav_up")
 	RemoveKeybind("menu_nav_down")
 	RemoveKeybind("menu_selected")
+	RemoveKeybind("menu_back")
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("menu_nav_up"):
@@ -36,6 +39,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		$MenuSystem.MenuItemDecrement()
 	elif event.is_action_pressed("menu_selected"):
 		$MenuSystem.MenuItemSelect()
+	elif event.is_action_pressed("menu_back"):
+		$MenuSystem.MenuItemBack()
 
 func AddKeybind( actionName:StringName, key) -> void:
 	if !InputMap.has_action(actionName):

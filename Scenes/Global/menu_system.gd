@@ -6,6 +6,7 @@ var g_menuButtons :Array[Button]
 var g_previousLocation :Vector2
 var g_previousFontSize :float
 var g_currentButtonFocus = 0
+var g_menuStack:Array[StringName]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -27,7 +28,7 @@ func LoadMenu(menuKey: String, location : Vector2 = get_viewport_rect().get_cent
 	#clear prev buttons
 	ClearMenuItems()
 	
-	print(self.getLargestButtonX())
+	#print(self.getLargestButtonX())
 	#menuData.m_header
 	
 	# set menu position and scale
@@ -45,6 +46,9 @@ func LoadMenu(menuKey: String, location : Vector2 = get_viewport_rect().get_cent
 			createMenuItemInterfaceElement(menuItemData, menuItemCount, fontSize)
 			menuItemCount = menuItemCount + 1
 	
+	#TODO data should probably determine whether or not we maintain the stack.
+	# also maybe menu data could also set whether or not the back button is auto generated instead of having to manually link it.
+	InternalRecordMenuStack(menuKey)
 	ChangeMenuItemFocus(0)
 	
 	return true
@@ -62,8 +66,8 @@ func createMenuItemInterfaceElement(menuItem: DesignData.CMenuItemData, index: i
 	var xpos: float = -(button.get_rect().get_center().x)
 	var ypos: float = index * (button.size.y + padding) 
 	
-	print("xpos: ", xpos)
-	print("ypos: ", ypos)
+	#print("xpos: ", xpos)
+	#print("ypos: ", ypos)
 	
 	g_menuButtons.push_back(button) 
 	button.set_position(Vector2(xpos, ypos))
@@ -160,5 +164,21 @@ func MenuItemSelect() -> void:
 	if g_currentButtonFocus >= g_menuButtons.size():
 		return
 	g_menuButtons[g_currentButtonFocus].set_pressed_no_signal(true)
+
+func MenuItemBack() -> void:
+	if g_menuStack.size() > 1:
+		g_menuStack.pop_front()
+		LoadMenu(g_menuStack[0], g_previousLocation, g_previousFontSize)
+		#print("menu pop")
+
+func InternalRecordMenuStack(selectedMenu:StringName) -> void:
+	if g_menuStack.has(selectedMenu):
+		#Prevent back button feature from twiddling between menus. 
+		var index := g_menuStack.find(selectedMenu,0)
+		for i in range(0,index):
+			#we've traversed to a node in our stack history before this node, so it's no longer relevant.
+			g_menuStack.pop_front()
+	else:
+		g_menuStack.push_front(selectedMenu)
 
 #######################################################################################
