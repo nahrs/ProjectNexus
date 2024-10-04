@@ -8,16 +8,21 @@ extends Area2D
 var screenSize
 signal hit
 signal shoot
+var m_isDead:bool = true
 
 var velo: Vector2 = Vector2.ZERO
 var veloMax = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	self.hide()
 	screenSize = get_viewport_rect().size
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if m_isDead:
+		return
+		
 	velo = Vector2.ZERO
 	
 	if Input.is_action_pressed("moveUp"):
@@ -36,9 +41,9 @@ func _process(delta: float) -> void:
 	else:
 		$AnimatedSprite2D.stop()
 	
-	if Input.is_action_pressed("shootUp"):
-		var score = $Main.getScore()
-		$Main.setScore(score * score)
+	#if Input.is_action_pressed("shootUp"):
+		#var score = $Main.getScore()
+		#$Main.setScore(score * score)
 	
 	if Input.is_action_just_pressed("shootLaser"):
 		shootLaser()
@@ -63,7 +68,7 @@ func _process(delta: float) -> void:
 #		$AnimatedSprite2D.animation = "up"
 #		#$AnimatedSprite2D.flip_v = velo.y > 0
 
-func _on_body_entered(body):
+func _on_body_entered(_body):
 	hide()
 	hit.emit()
 	
@@ -76,9 +81,9 @@ func start(pos) -> void:
 	
 
 func shootLaser():
-	shoot.emit()
-	$laserShot.play()
-
+	if !m_isDead:
+		shoot.emit()
+		$laserShot.play()
 
 func getSpeed() -> float:
 	return speed
@@ -91,3 +96,11 @@ func getPos() -> Vector2:
 
 func getRotation() -> float:
 	return rotation
+
+func setDead(isDead:bool) -> void:
+	if isDead != m_isDead:
+		m_isDead = isDead
+		if m_isDead:
+			self.hide()
+		else:
+			self.show()

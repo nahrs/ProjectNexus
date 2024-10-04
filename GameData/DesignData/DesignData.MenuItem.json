@@ -67,8 +67,8 @@
 		"GameSelect.DodgeTheJareds": {
 			"text": "Dodge The Jareds",
 			"subText": "Learn about child safety in this educational game!",
-			"callback": "OnGameSelect_DodgeTheJareds",
-			"callbackParams": "",
+			"callback": "fireEvent",
+			"callbackParams": "SceneTransition,DodgeTheJareds",
 			"subMenu": ""
 		},
 		"GameSelect.DodgeDeezNuts": {

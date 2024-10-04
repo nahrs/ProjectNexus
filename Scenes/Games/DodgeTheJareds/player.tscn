@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://dla6lyshowvkq"]
 
-[ext_resource type="Script" path="res://Scenes/Games/DodgeTheJareds/Player.gd" id="1_3rtvh"]
+[ext_resource type="Script" path="res://Scenes/Games/DodgeTheJareds/player.gd" id="1_e1pgl"]
 [ext_resource type="Texture2D" uid="uid://cipaiq43kwe0y" path="res://Scenes/Games/DodgeTheJareds/art/6107167.png" id="2_01kdu"]
 [ext_resource type="AudioStream" uid="uid://74u75xvvmxb1" path="res://Scenes/Games/DodgeTheJareds/art/audio/Laser Fire/laserfire01.ogg" id="3_f4386"]
 
@@ -63,7 +63,7 @@ animations = [{
 
 [node name="Player" type="Area2D"]
 position = Vector2(463, 259)
-script = ExtResource("1_3rtvh")
+script = ExtResource("1_e1pgl")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(4, 4)

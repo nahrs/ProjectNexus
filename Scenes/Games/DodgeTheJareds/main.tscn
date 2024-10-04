@@ -49,7 +49,6 @@ stretch_mode = 5
 
 [node name="Player" parent="." instance=ExtResource("1_7vg8n")]
 position = Vector2(940, 585)
-script = null
 
 [node name="MobTimer" type="Timer" parent="."]
 wait_time = 0.5
@@ -73,7 +72,6 @@ position = Vector2(2, 0.0387001)
 rotation = -3.12225
 
 [node name="HUD" parent="." instance=ExtResource("4_riwdg")]
-script = null
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamMP3_sk5ct")
@@ -81,6 +79,8 @@ volume_db = -20.0
 autoplay = true
 script = SubResource("GDScript_ew4x6")
 
+[connection signal="hit" from="Player" to="." method="onPlayerHit"]
+[connection signal="shoot" from="Player" to="." method="onLaserShot"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]

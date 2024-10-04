@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://casvs2rla13ek"]
+
+[ext_resource type="Script" path="res://Scenes/Global/SceneTransitionSystem/scene_transition_system.gd" id="1_y7nuw"]
+
+[node name="SceneTransitionSystem" type="Node2D"]
+script = ExtResource("1_y7nuw")
