@@ -17,3 +17,4 @@ texture = ExtResource("2_dle7b")
 
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_eba58")
+parameters/looping = true
