@@ -1,10 +1,10 @@
 extends Node2D
 
-signal OnMenuItemSelected
+#signal OnMenuItemSelected
 
 var g_menuButtons :Array
 var g_previousLocation :Vector2
-var g_previousFontSize :int
+var g_previousFontSize :float
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -12,7 +12,7 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 # Add a menu 
@@ -46,7 +46,7 @@ func LoadMenu(menuKey: String, location : Vector2 = get_viewport_rect().get_cent
 	
 	return true
 
-func createMenuItemInterfaceElement(menuItem: DesignData.CMenuItemData, index: int, fontSize: int) -> void:
+func createMenuItemInterfaceElement(menuItem: DesignData.CMenuItemData, index: int, fontSize: float) -> void:
 	var text = menuItem.m_text
 	var button = Button.new()
 	var padding = 3
@@ -54,7 +54,7 @@ func createMenuItemInterfaceElement(menuItem: DesignData.CMenuItemData, index: i
 	button.text = text
 	add_child(button)
 	
-	button.add_theme_font_size_override("font_size", fontSize)
+	button.add_theme_font_size_override("font_size", fontSize as int)
 	
 	var xpos: float = -(button.get_rect().get_center().x)
 	var ypos: float = index * (button.size.y + padding) 
@@ -100,19 +100,33 @@ func buttonPressed(id:DesignData.CTableKey) -> void:
 	
 	var subMenu := menuItemDef.m_subMenu
 	var callBack := menuItemDef.m_callBack
+	var callBackParams := menuItemDef.m_callBackParams
 	
 	if (callBack.length() > 0):
 		print(self.has_method(callBack))
 		if (!self.has_method(callBack)):
 			print(get_script().get_path(), ":: callback: ", callBack, " not found for id: ", id)
 		else:
-			self.call(callBack)
+			self.call(callBack, callBackParams )
 	
 	if (subMenu.m_key.length() > 0):
 		LoadMenu(subMenu.m_key, g_previousLocation, g_previousFontSize)
 
-func quitGame() -> void:
+func quitGame(_params:String) -> void:
 	get_tree().quit()
+
+func fireEvent(params:String) -> void:
+	var strArr := params.split(",")
+	params.split()
+	if strArr.size() > 0:
+		var eventName:StringName = StringName(strArr[0])
+		strArr.remove_at(0)
+		if strArr.size() == 0:
+			EventSystem.FireEvent(eventName, 0)
+		elif strArr.size() == 1:
+			EventSystem.FireEvent(eventName, strArr[0])
+		else:
+			EventSystem.FireEvent(eventName,strArr)
 
 func ClearMenuItems() -> void:
 	for button in g_menuButtons:

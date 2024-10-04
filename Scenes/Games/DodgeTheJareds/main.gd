@@ -1,7 +1,7 @@
 extends Node
 
 @export var mobScene: PackedScene
-
+@export var playerScene: PackedScene
 @export var jaredScene: PackedScene
 @export var jaredScene2: PackedScene
 @export var jaredScene3: PackedScene
@@ -17,9 +17,23 @@ var isDead: bool = false
 @warning_ignore("unused_parameter")
 
 func _ready() -> void:
+	preload("res://Scenes/Games/DodgeTheJareds/player.gd").new()
+	preload("res://Scenes/Games/DodgeTheJareds/hud.tscn")
+	preload("res://Scenes/Games/DodgeTheJareds/laser.tscn")
+	preload("res://Scenes/Games/DodgeTheJareds/jared1.tscn")
+	preload("res://Scenes/Games/DodgeTheJareds/jared2.tscn")
+	preload("res://Scenes/Games/DodgeTheJareds/jared3.tscn")
+	preload("res://Scenes/Games/DodgeTheJareds/jaredLeto2.tscn")
+	preload("res://Scenes/Games/DodgeTheJareds/jaredLeto3.tscn")
+	preload("res://Scenes/Games/DodgeTheJareds/jaredLeto.tscn")
+	preload("res://Scenes/Games/DodgeTheJareds/mob.tscn")
+	
 	$Music.play()
+	
+	$HUD/StartButton.connect("pressed",newGame)
+	 #.connect("startGame",newGame)
 
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_pressed("newGame"):
 		newGame()
 
@@ -29,6 +43,7 @@ func gameOver() -> void:
 	$MobTimer.stop()
 	
 	isDead = true
+	$Player.setDead(isDead)
 	
 	$HUD.showGameOver()
 
@@ -38,6 +53,7 @@ func onPlayerHit() -> void:
 func newGame() -> void:
 	score = 0
 	isDead = false
+	$Player.setDead(isDead)
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
 	
@@ -83,7 +99,7 @@ func onLaserShot() -> void:
 	if (!isDead):
 		var laser = laserScene.instantiate()
 		var speed = $Player.getSpeed()
-		var velo = $Player.getVelo()
+		var _velo = $Player.getVelo()
 		var pos = $Player.getPos()
 		var rot = $Player.getRotation()
 		laser.init(speed, pos, rot)

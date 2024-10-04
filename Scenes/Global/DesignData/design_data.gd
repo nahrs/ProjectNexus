@@ -23,6 +23,25 @@ func RegisterDataTypes() -> void:
 	m_DesignData.RegisterDataType(CMenuData)
 	m_DesignData.RegisterDataType(CMenuItemData)
 
+func RunDesignDataUnitTest():
+	var unitData := DesignData.GetData(DesignData.CUnitTestData.m_tableName, "EntryOne") as DesignData.CUnitTestData
+	if unitData != null:
+		print(unitData.GetContents(), "\n")
+	else:
+		print("Could not find data for ", DesignData.CUnitTestData.m_tableName, " ", "EntryThree")
+	
+	unitData = DesignData.GetData(DesignData.CUnitTestData.m_tableName, "EntryTwo") as DesignData.CUnitTestData
+	if unitData != null:
+		print(unitData.GetContents(), "\n")
+	else:
+		print("Could not find data for ", DesignData.CUnitTestData.m_tableName, " ", "EntryThree")
+	
+	unitData = DesignData.GetData(DesignData.CUnitTestData.m_tableName, "EntryThree") as DesignData.CUnitTestData
+	if unitData != null:
+		print(unitData.GetContents(), "\n")
+	else:
+		print("Could not find data for ", DesignData.CUnitTestData.m_tableName, " ", "EntryThree")
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	m_DesignData = CDesignDataManager.new()
@@ -30,7 +49,7 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 ######################################################################################################
@@ -194,19 +213,19 @@ class CDesignDataManager :
 	
 	######################################################################################################
 	
-	static func GetTableKeyFromString(str:String) ->CTableKey:
+	static func GetTableKeyFromString(tableKeyStr:String) ->CTableKey:
 		var tableKey = CTableKey.new()
 		
-		if str.length() == 0:
+		if tableKeyStr.length() == 0:
 			#A valid empty table key
 			return tableKey
 		
 		# A tableKey is formated like tableName[key]
-		var strArr := str.trim_suffix("]").split("[")
+		var strArr := tableKeyStr.trim_suffix("]").split("[")
 		
 		#A table key is two strings.
 		if strArr.size() != 2:
-			print("GetTableKeyFromString - could not build a tableKey from string: ", str, "expected format \"table[key]\", or for empty tableKey use \".\"")
+			print("GetTableKeyFromString - could not build a tableKey from string: ", tableKeyStr, "expected format \"table[key]\", or for empty tableKey use \".\"")
 			return tableKey
 		
 		#we gucci

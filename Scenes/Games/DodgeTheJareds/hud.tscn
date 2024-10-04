@@ -7,9 +7,10 @@
 script = ExtResource("1_5do0v")
 
 [node name="ScoreLabel" type="Label" parent="."]
-offset_top = 1.0
-offset_right = 1701.0
-offset_bottom = 85.0
+offset_left = 374.0
+offset_top = 5.0
+offset_right = 646.0
+offset_bottom = 89.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_6tiio")
 theme_override_font_sizes/font_size = 69
@@ -17,10 +18,10 @@ text = "0"
 horizontal_alignment = 2
 
 [node name="Message" type="Label" parent="."]
-offset_left = 363.0
-offset_top = 270.0
-offset_right = 1294.0
-offset_bottom = 461.0
+offset_left = 88.0
+offset_top = 181.0
+offset_right = 1019.0
+offset_bottom = 372.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_6tiio")
 theme_override_font_sizes/font_size = 69
@@ -28,18 +29,21 @@ horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="HighScoreLabel" type="Label" parent="."]
-offset_top = 864.0
-offset_right = 1701.0
-offset_bottom = 948.0
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 342.0
+offset_bottom = 91.0
 theme_override_fonts/font = ExtResource("1_6tiio")
 theme_override_font_sizes/font_size = 69
+text = "0
+"
 vertical_alignment = 1
 
 [node name="StartButton" type="Button" parent="."]
-offset_left = 580.0
-offset_top = 541.0
-offset_right = 1057.0
-offset_bottom = 633.0
+offset_left = 367.0
+offset_top = 430.0
+offset_right = 844.0
+offset_bottom = 522.0
 tooltip_text = "press space to click this button if you so desire to do so."
 theme_override_colors/font_hover_color = Color(0.678431, 0.380392, 0.65098, 1)
 theme_override_fonts/font = ExtResource("1_6tiio")
@@ -47,7 +51,20 @@ theme_override_font_sizes/font_size = 49
 text = "dodge them 'gas"
 icon_alignment = 1
 
+[node name="ExitButton" type="Button" parent="."]
+offset_left = 369.0
+offset_top = 523.0
+offset_right = 846.0
+offset_bottom = 615.0
+tooltip_text = "press space to click this button if you so desire to do so."
+theme_override_colors/font_hover_color = Color(0.678431, 0.380392, 0.65098, 1)
+theme_override_fonts/font = ExtResource("1_6tiio")
+theme_override_font_sizes/font_size = 49
+text = "enough 'gas?"
+icon_alignment = 1
+
 [node name="MessageTimer" type="Timer" parent="."]
 
 [connection signal="pressed" from="StartButton" to="." method="onStartButtonPressed"]
+[connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="timeout" from="MessageTimer" to="." method="onMessageTimerTimeout"]

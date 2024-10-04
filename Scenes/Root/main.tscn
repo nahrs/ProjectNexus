@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dwbyv8005luva"]
+
+[ext_resource type="Script" path="res://Scenes/Root/main.gd" id="1_waose"]
+[ext_resource type="PackedScene" uid="uid://casvs2rla13ek" path="res://Scenes/Global/SceneTransitionSystem/SceneTransitionSystem.tscn" id="4_pryyk"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_waose")
+
+[node name="SceneTransitionSystem" parent="." instance=ExtResource("4_pryyk")]
