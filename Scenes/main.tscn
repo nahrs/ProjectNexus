@@ -15,4 +15,4 @@ texture = ExtResource("2_acfsu")
 expand_mode = 4
 
 [node name="MenuSystem" parent="." instance=ExtResource("3_ybw2i")]
-position = Vector2(574, 326)
+position = Vector2(585, 342)

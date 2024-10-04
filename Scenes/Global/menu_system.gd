@@ -3,6 +3,8 @@ extends Node2D
 signal OnMenuItemSelected
 
 var g_menuButtons :Array
+var g_previousLocation :Vector2
+var g_previousFontSize :int
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -14,7 +16,7 @@ func _process(delta: float) -> void:
 	pass
 
 # Add a menu 
-func LoadMenu(menuKey: String) -> bool:
+func LoadMenu(menuKey: String, location : Vector2 = get_viewport_rect().get_center(), fontSize : float = 15)-> bool:
 	#Load the data for the menu.
 	var menuData := DesignData.GetData(DesignData.CMenuData.m_tableName, menuKey) as DesignData.CMenuData
 	if menuData == null:
@@ -24,19 +26,27 @@ func LoadMenu(menuKey: String) -> bool:
 	#clear prev buttons
 	ClearMenuItems()
 	
+	print(self.getLargestButtonX())
 	#menuData.m_header
+	
+	# set menu position and scale
+	if g_previousLocation != location:
+		g_previousLocation = location
+	if g_previousFontSize != fontSize:
+		g_previousFontSize = fontSize
+	self.set_position(location)
 	
 	#For each menuItem in the menu data, add a menuItem UI object.
 	var menuItemCount = 0
 	for tableKey:DesignData.CTableKey in menuData.m_menuItems:
 		var menuItemData := DesignData.GetDataByTableKey(tableKey) as DesignData.CMenuItemData
 		if menuItemData != null:
-			createMenuItemInterfaceElement(menuItemData, menuItemCount, menuData.m_menuItems.size())
+			createMenuItemInterfaceElement(menuItemData, menuItemCount, fontSize)
 			menuItemCount = menuItemCount + 1
-
+	
 	return true
 
-func createMenuItemInterfaceElement(menuItem: DesignData.CMenuItemData, index: int, totalButtons: int) -> void:
+func createMenuItemInterfaceElement(menuItem: DesignData.CMenuItemData, index: int, fontSize: int) -> void:
 	var text = menuItem.m_text
 	var button = Button.new()
 	var padding = 3
@@ -44,13 +54,42 @@ func createMenuItemInterfaceElement(menuItem: DesignData.CMenuItemData, index: i
 	button.text = text
 	add_child(button)
 	
-	var xpos: float = 0 - (button.size.x / 2) #get_viewport().get_visible_rect().size.x / 2 # + (((index * button.size.x) - (totalButtons * button.size.x)/2) - (totalButtons * button.size.x)/2)	add this to x after getting the middle to align buttons horizontally
-	var ypos: float = index * (button.size.y + padding) * button.scale.y  #- (totalButtons * button.size.y * button.scale.y / 2) #get_viewport().get_visible_rect().size.y / 2 + (index * button.size.y) - (totalButtons * button.size.y)/2
+	button.add_theme_font_size_override("font_size", fontSize)
 	
+	var xpos: float = -(button.get_rect().get_center().x)
+	var ypos: float = index * (button.size.y + padding) 
+	
+	print("xpos: ", xpos)
+	print("ypos: ", ypos)
+	
+	g_menuButtons.push_back(button) 
 	button.set_position(Vector2(xpos, ypos))
-	button.pressed.connect(self.buttonPressed.bind(menuItem.m_id))
 	
-	g_menuButtons.append(button)
+	button.pressed.connect(self.buttonPressed.bind(menuItem.m_id))
+
+func getLargestButtonX(buttonArray : Array = g_menuButtons) -> Button:
+	if(!buttonArray.is_empty()):
+		var largestButton : Button = buttonArray[0]
+		var prevButton :Button = buttonArray[0]
+		for button in buttonArray:
+			if (button.get_rect().size.x > prevButton.get_rect().size.x):
+				largestButton = button
+		return largestButton
+	else:
+		return null
+
+func getLargestButtonY(buttonArray : Array = g_menuButtons) -> Button:
+	if(!buttonArray.is_empty()):
+		var largestButton : Button = buttonArray[0]
+		var prevButton :Button = buttonArray[0]
+		for button in buttonArray:
+			if buttonArray.find(button) == 0:
+				continue
+			if (button.get_rect().size.y > prevButton.get_rect().size.y):
+				largestButton = button
+		return largestButton
+	else:
+		return null
 
 func buttonPressed(id:DesignData.CTableKey) -> void:
 	var menuItemDef := DesignData.GetDataByTableKey(id) as DesignData.CMenuItemData
@@ -70,7 +109,7 @@ func buttonPressed(id:DesignData.CTableKey) -> void:
 			self.call(callBack)
 	
 	if (subMenu.m_key.length() > 0):
-		LoadMenu(subMenu.m_key)
+		LoadMenu(subMenu.m_key, g_previousLocation, g_previousFontSize)
 
 func quitGame() -> void:
 	get_tree().quit()

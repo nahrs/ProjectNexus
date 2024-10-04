@@ -13,8 +13,8 @@ func _ready() -> void:
 	#PrintMenuData("Poopies")
 	RunDesignDataUnitTest()
 	
-	$MenuSystem.LoadMenu("MainMenu")
-	$MenuSystem.set_position(get_viewport_rect().size / 2)
+	$MenuSystem.LoadMenu("MainMenu",get_viewport_rect().get_center(),36)
+	
 
 func RunDesignDataUnitTest():
 	var unitData := DesignData.GetData(DesignData.CUnitTestData.m_tableName, "EntryOne") as DesignData.CUnitTestData
@@ -52,4 +52,5 @@ func PrintMenuData(menuKey:StringName):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
+	#print(get_local_mouse_position())
 	pass
