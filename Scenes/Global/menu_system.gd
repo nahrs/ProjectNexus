@@ -2,9 +2,10 @@ extends Node2D
 
 #signal OnMenuItemSelected
 
-var g_menuButtons :Array
+var g_menuButtons :Array[Button]
 var g_previousLocation :Vector2
 var g_previousFontSize :float
+var g_currentButtonFocus = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -43,6 +44,8 @@ func LoadMenu(menuKey: String, location : Vector2 = get_viewport_rect().get_cent
 		if menuItemData != null:
 			createMenuItemInterfaceElement(menuItemData, menuItemCount, fontSize)
 			menuItemCount = menuItemCount + 1
+	
+	ChangeMenuItemFocus(0)
 	
 	return true
 
@@ -132,5 +135,30 @@ func ClearMenuItems() -> void:
 	for button in g_menuButtons:
 		remove_child(button)
 	g_menuButtons.clear()
+
+func ChangeMenuItemFocus(index:int) -> void:
+	g_currentButtonFocus = index
+	if g_menuButtons.size() > 0:
+		g_menuButtons[g_currentButtonFocus].grab_focus()
+
+func MenuItemIncrement() -> void:
+	if g_menuButtons.size() > 1:
+		if g_currentButtonFocus == 0:
+			g_currentButtonFocus = g_menuButtons.size() - 1
+		else:
+			g_currentButtonFocus = g_currentButtonFocus - 1
+		ChangeMenuItemFocus(g_currentButtonFocus)
+
+func MenuItemDecrement() -> void:
+	if g_menuButtons.size() > 1:
+		g_currentButtonFocus = (g_currentButtonFocus + 1) % g_menuButtons.size()
+		ChangeMenuItemFocus(g_currentButtonFocus)
+
+func MenuItemSelect() -> void:
+	if g_menuButtons.size() == 0:
+		return
+	if g_currentButtonFocus >= g_menuButtons.size():
+		return
+	g_menuButtons[g_currentButtonFocus].set_pressed_no_signal(true)
 
 #######################################################################################
