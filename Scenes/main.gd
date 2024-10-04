@@ -13,7 +13,7 @@ func _ready() -> void:
 	#PrintMenuData("Poopies")
 	RunDesignDataUnitTest()
 	
-	$MenuSystem.LoadMenu("MainMenu",get_viewport_rect().get_center(),36)
+	$MenuSystem.LoadMenu("MainMenu")
 	
 
 func RunDesignDataUnitTest():

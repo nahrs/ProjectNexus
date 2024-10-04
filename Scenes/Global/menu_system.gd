@@ -16,7 +16,7 @@ func _process(delta: float) -> void:
 	pass
 
 # Add a menu 
-func LoadMenu(menuKey: String, location : Vector2 = get_viewport_rect().get_center(), fontSize : float = 15)-> bool:
+func LoadMenu(menuKey: String, location : Vector2 = get_viewport_rect().get_center(), fontSize : float = 18)-> bool:
 	#Load the data for the menu.
 	var menuData := DesignData.GetData(DesignData.CMenuData.m_tableName, menuKey) as DesignData.CMenuData
 	if menuData == null:
@@ -26,7 +26,7 @@ func LoadMenu(menuKey: String, location : Vector2 = get_viewport_rect().get_cent
 	#clear prev buttons
 	ClearMenuItems()
 	
-	print(self.getLargestButtonX())
+	print(get_script().get_path(), ": ", self.getLargestButtonX())
 	#menuData.m_header
 	
 	# set menu position and scale
@@ -61,6 +61,7 @@ func createMenuItemInterfaceElement(menuItem: DesignData.CMenuItemData, index: i
 	
 	print("xpos: ", xpos)
 	print("ypos: ", ypos)
+	print("")
 	
 	g_menuButtons.push_back(button) 
 	button.set_position(Vector2(xpos, ypos))
@@ -110,6 +111,10 @@ func buttonPressed(id:DesignData.CTableKey) -> void:
 	
 	if (subMenu.m_key.length() > 0):
 		LoadMenu(subMenu.m_key, g_previousLocation, g_previousFontSize)
+
+func OnGameSelect_DodgeTheJareds():
+	var scene = preload("res://Scenes/Games/DodgeTheJareds/main.tscn").instantiate()
+	add_child(scene)
 
 func quitGame() -> void:
 	get_tree().quit()
