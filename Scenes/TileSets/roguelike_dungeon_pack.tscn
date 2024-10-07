@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bpk4xy02s7lwr"]
 
-[ext_resource type="Texture2D" uid="uid://c87ehpkd1kjji" path="res://Art/Kenney's Roguelike/Roguelike Dungeon Pack/Spritesheet/roguelikeDungeon_transparent.png" id="1_v04wh"]
+[ext_resource type="Texture2D" uid="uid://bk23od1g72eho" path="res://Art/Kenney's Roguelike/Roguelike Dungeon Pack/Spritesheet/roguelikeDungeon_transparent.png" id="1_v04wh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bd3ve"]
 resource_name = "roguelike_dungeon_pack"

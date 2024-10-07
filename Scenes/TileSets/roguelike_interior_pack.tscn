@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cwlxmgpm8mtcs"]
 
-[ext_resource type="Texture2D" uid="uid://dtqc74mc4c61e" path="res://Art/Kenney's Roguelike/Roguelike Interior Pack/Spritesheet/roguelikeIndoor_transparent.png" id="1_j55k4"]
+[ext_resource type="Texture2D" uid="uid://d2c81no0qpnbq" path="res://Art/Kenney's Roguelike/Roguelike Interior Pack/Spritesheet/roguelikeIndoor_transparent.png" id="1_j55k4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vpfy5"]
 resource_name = "roguelike_interior_pack"
