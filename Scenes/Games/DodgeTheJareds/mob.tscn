@@ -1,0 +1,70 @@
+[gd_scene load_steps=10 format=3 uid="uid://drw8rb3bjvome"]
+
+[ext_resource type="Script" path="res://Scenes/Games/DodgeTheJareds/mob.gd" id="1_1wy3y"]
+[ext_resource type="Texture2D" uid="uid://brkad03k4y5i5" path="res://Scenes/Games/DodgeTheJareds/art/enemyFlyingAlt_1.png" id="1_6k2xb"]
+[ext_resource type="Texture2D" uid="uid://cmvx0bri3cii0" path="res://Scenes/Games/DodgeTheJareds/art/enemyFlyingAlt_2.png" id="2_lhqbj"]
+[ext_resource type="Texture2D" uid="uid://dpnela7cvsjbt" path="res://Scenes/Games/DodgeTheJareds/art/enemySwimming_1.png" id="3_brm20"]
+[ext_resource type="Texture2D" uid="uid://csuk5t76rpl2a" path="res://Scenes/Games/DodgeTheJareds/art/enemySwimming_2.png" id="4_p7din"]
+[ext_resource type="Texture2D" uid="uid://chu8cja5n6r3h" path="res://Scenes/Games/DodgeTheJareds/art/enemyWalking_1.png" id="5_38x6x"]
+[ext_resource type="Texture2D" uid="uid://gb68r8m4yc6q" path="res://Scenes/Games/DodgeTheJareds/art/enemyWalking_2.png" id="6_awgfb"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6muhp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_6k2xb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_lhqbj")
+}],
+"loop": true,
+"name": &"flight",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_brm20")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_p7din")
+}],
+"loop": true,
+"name": &"swimming",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_38x6x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_awgfb")
+}],
+"loop": true,
+"name": &"walking",
+"speed": 3.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fupo6"]
+radius = 34.6667
+height = 96.0
+
+[node name="Mob" type="RigidBody2D" groups=["mobs"]]
+scale = Vector2(0.75, 0.75)
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_1wy3y")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1.19209e-07, -5.68434e-14)
+scale = Vector2(0.818043, 0.818043)
+sprite_frames = SubResource("SpriteFrames_6muhp")
+animation = &"flight"
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 7.62939e-06)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_fupo6")
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://bg25qt4mtcgvp"]
+
+[ext_resource type="Script" path="res://Scenes/Games/DodgeTheJareds/jared.gd" id="1_ufym6"]
+[ext_resource type="Texture2D" uid="uid://do7sij2f5pjve" path="res://Scenes/Games/DodgeTheJareds/art/jared_leto.png" id="2_dt66y"]
+[ext_resource type="Texture2D" uid="uid://crkq0tgq8752e" path="res://Scenes/Games/DodgeTheJareds/art/jared_leto_flipped.png" id="3_kewdj"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_geqxq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_dt66y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_kewdj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
+[node name="JaredLeto2" type="RigidBody2D" groups=["jareds"]]
+mass = 400.0
+gravity_scale = 0.0
+script = ExtResource("1_ufym6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1.19209e-07, -4.76837e-07)
+scale = Vector2(0.25556, 0.25556)
+sprite_frames = SubResource("SpriteFrames_geqxq")
+frame_progress = 0.941413
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(45, 13)
+polygon = PackedVector2Array(-42, -39, -35, -36, -31, -28, -30, -16, -33, -5, -35, 3, -38, 10, -44, 15, -49, 15, -54, 12, -57, 8, -60, 1, -61, -7, -61, -16, -60, -27, -58, -32, -51, -39)
