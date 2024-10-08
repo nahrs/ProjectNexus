@@ -21,6 +21,7 @@ func show_game_over():
 	
 	await show_start
 	$Message.text = "Never forget that in today's society it is still not okay you to touch nuts that are not yours."
+	EventSystem.FireEvent(EventSystem.CEvents.SceneTransition, SceneGlobal.m_superMainMenu)
 	$StartButton.show()
 
 func update_score(score):
