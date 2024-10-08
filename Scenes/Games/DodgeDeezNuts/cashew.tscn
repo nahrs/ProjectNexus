@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8vqtmcc0a77c"]
+
+[ext_resource type="Script" path="res://Scenes/Games/DodgeDeezNuts/cashew.gd" id="1_hekct"]
+[ext_resource type="Texture2D" uid="uid://bbl11plicwty8" path="res://Art/DodgeDeezNuts/Deez Nuts/cashew.png" id="1_l3oau"]
+
+[node name="Cashew" type="RigidBody2D" groups=["nuts"]]
+position = Vector2(232, 184)
+gravity_scale = 0.0
+script = ExtResource("1_hekct")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("1_l3oau")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-280, -136)
+polygon = PackedVector2Array(272, 120, 272, 112, 280, 104, 288, 104, 304, 112, 312, 128, 312, 136, 312, 152, 304, 160, 296, 168, 280, 168, 272, 160, 264, 160, 264, 160, 256, 160, 248, 160, 248, 144, 256, 136, 264, 128, 272, 128)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

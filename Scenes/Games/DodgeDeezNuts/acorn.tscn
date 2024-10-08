@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dklcjr7nkixuc"]
+
+[ext_resource type="Script" path="res://Scenes/Games/DodgeDeezNuts/acorn.gd" id="1_d4cdj"]
+[ext_resource type="Texture2D" uid="uid://dqgxbkf00qjmf" path="res://Art/DodgeDeezNuts/Deez Nuts/acorn.png" id="2_j11oq"]
+
+[node name="acorn" type="RigidBody2D" groups=["nuts"]]
+position = Vector2(88, 64)
+gravity_scale = 0.0
+script = ExtResource("1_d4cdj")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.13, 0.13)
+texture = ExtResource("2_j11oq")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-24, 0, -16, -16, -8, -24, 8, -24, 16, -16, 24, -8, 24, 8, 16, 16, 8, 24, -16, 24, -24, 16)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://cessuxhfybyr6"]
+
+[ext_resource type="Script" path="res://Scenes/Games/DodgeDeezNuts/Don't Touch My Nuts.gd" id="1_gpf2l"]
+[ext_resource type="AudioStream" uid="uid://bhqvivj2854bx" path="res://Audio/DodgeDeezNuts/Don't Touch My Nuts/start.mp3" id="2_3epmd"]
+[ext_resource type="AudioStream" uid="uid://jj1t4re3tn50" path="res://Audio/DodgeDeezNuts/Don't Touch My Nuts/loop.mp3" id="3_s2jp4"]
+
+[node name="Don\'t Touch My Nuts" type="AudioStreamPlayer"]
+stream = ExtResource("3_s2jp4")
+script = ExtResource("1_gpf2l")
+
+[node name="start" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_3epmd")
+autoplay = true
+
+[connection signal="finished" from="." to="." method="_on_finished"]
+[connection signal="finished" from="start" to="." method="_on_start_finished"]

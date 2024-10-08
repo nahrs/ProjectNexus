@@ -12,3 +12,10 @@ I would assume the process is the same across any linux distribution and probabl
 * Open Godot. Doing so should bring up the Project Manager.
 * Find and press the import button, and select the ProjectNexus folder you just finished cloning
 BADA BING BADA BOOM! you are up and running
+
+
+# Bringing in your game
+
+So I am not sure how rayool brought in DodgeTheJareds, but I created an Audio folder in the root directory, and then created DodgeDeezNuts folders in Art, Audio, and Scenes/Games to import all of my files. I then opened each file and it managed to find the artwork automatically, but it would have "dependency issues" from not finding the files. The interface allows you to teach it the path to all the files.
+
+Now I am trying to find the button and how to teach it to grab my main scene. I wouldn't be surprise if there is a better way to import it into our project.
