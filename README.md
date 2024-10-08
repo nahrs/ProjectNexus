@@ -19,3 +19,7 @@ BADA BING BADA BOOM! you are up and running
 So I am not sure how rayool brought in DodgeTheJareds, but I created an Audio folder in the root directory, and then created DodgeDeezNuts folders in Art, Audio, and Scenes/Games to import all of my files. I then opened each file and it managed to find the artwork automatically, but it would have "dependency issues" from not finding the files. The interface allows you to teach it the path to all the files.
 
 Now I am trying to find the button and how to teach it to grab my main scene. I wouldn't be surprise if there is a better way to import it into our project.
+
+## Input map WARNING!
+
+when bringing in your game, you may want to change the codebase to the convention of this input map or find a way to import yours.
