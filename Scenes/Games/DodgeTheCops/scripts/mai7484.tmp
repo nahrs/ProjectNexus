@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=3 uid="uid://og78blmmxm53"]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_01ss6"]
+[ext_resource type="PackedScene" uid="uid://dqt8v74rh4fk5" path="res://scripts/mob.tscn" id="2_w142d"]
+[ext_resource type="PackedScene" uid="uid://dbr36a2x553p3" path="res://scripts/player.tscn" id="3_qipp5"]
+[ext_resource type="Texture2D" uid="uid://cj8dw77kv77mm" path="res://art/Fuzz.jpg" id="3_rl43c"]
+[ext_resource type="PackedScene" uid="uid://cp3gntjnvtg57" path="res://scripts/hud.tscn" id="4_kv04l"]
+
+[sub_resource type="Curve2D" id="Curve2D_632km"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 478, 1, 0, 0, 0, 0, 478, 715, 0, 0, 0, 0, 1, 714, 0, 0, 0, 0, 2, 2)
+}
+point_count = 5
+
+[node name="Main" type="Node"]
+script = ExtResource("1_01ss6")
+mob_scene = ExtResource("2_w142d")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 1200.0
+offset_bottom = 1800.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("3_rl43c")
+
+[node name="Player" parent="." instance=ExtResource("3_qipp5")]
+
+[node name="MobTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="ScoreTimer" type="Timer" parent="."]
+
+[node name="StartTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="StartPosition" type="Marker2D" parent="."]
+position = Vector2(240, 450)
+
+[node name="MobPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_632km")
+
+[node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
+position = Vector2(2, 2)
+rotation = -0.00210084
+
+[node name="HUD" parent="." instance=ExtResource("4_kv04l")]
+
+[connection signal="hit" from="Player" to="." method="_on_player_hit"]
+[connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
+[connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
+[connection signal="start_game" from="HUD" to="." method="new_game"]

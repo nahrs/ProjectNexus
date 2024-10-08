@@ -1,0 +1,38 @@
+[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://y24u6rau1cno"]
+
+[sub_resource type="AudioEffectAmplify" id="AudioEffectAmplify_yapfk"]
+resource_name = "Amplify"
+volume_db = -80.0
+
+[sub_resource type="AudioEffectSpectrumAnalyzer" id="AudioEffectSpectrumAnalyzer_llwux"]
+resource_name = "SpectrumAnalyzer"
+
+[resource]
+bus/1/name = &"MusicBus"
+bus/1/solo = false
+bus/1/mute = false
+bus/1/bypass_fx = false
+bus/1/volume_db = 0.0
+bus/1/send = &"Master"
+bus/2/name = &"MuteBus"
+bus/2/solo = false
+bus/2/mute = false
+bus/2/bypass_fx = false
+bus/2/volume_db = 0.0
+bus/2/send = &"Master"
+bus/2/effect/0/effect = SubResource("AudioEffectAmplify_yapfk")
+bus/2/effect/0/enabled = true
+bus/3/name = &"LipSyncBus"
+bus/3/solo = false
+bus/3/mute = false
+bus/3/bypass_fx = false
+bus/3/volume_db = 0.0
+bus/3/send = &"MuteBus"
+bus/3/effect/0/effect = SubResource("AudioEffectSpectrumAnalyzer_llwux")
+bus/3/effect/0/enabled = true
+bus/4/name = &"MicBus"
+bus/4/solo = false
+bus/4/mute = false
+bus/4/bypass_fx = false
+bus/4/volume_db = 0.00282288
+bus/4/send = &"LipSyncBus"

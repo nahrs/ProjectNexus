@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://budpyesyeiwx5"
+path="res://.godot/imported/City Background Noise.mp3-ae5ace5e85d39ec58773fb38257a4d32.mp3str"
+
+[deps]
+
+source_file="res://Scenes/Games/DodgeTheCops/art/Audio/Music/City Background Noise.mp3"
+dest_files=["res://.godot/imported/City Background Noise.mp3-ae5ace5e85d39ec58773fb38257a4d32.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

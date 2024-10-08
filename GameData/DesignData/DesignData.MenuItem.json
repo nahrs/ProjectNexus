@@ -60,8 +60,8 @@
 		"GameSelect.DodgeTheCops": {
 			"text": "Dodge The Cops",
 			"subText": "A thrilling game of attempted police brutality!",
-			"callback": "OnGameSelect_DodgeTheCops",
-			"callbackParams": "poopies",
+			"callback": "fireEvent",
+			"callbackParams": "SceneTransition,DodgeTheCops",
 			"subMenu": ""
 		},
 		"GameSelect.DodgeTheJareds": {

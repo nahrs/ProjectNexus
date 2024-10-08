@@ -9,12 +9,12 @@ func _ready() -> void:
 	$MenuSystem.LoadMenu("MainMenu",get_viewport_rect().get_center(),36)
 	$BackgroundMusic.play()
 	
-	AddKeybind("menu_nav_up", KEY_W)
-	AddKeybind("menu_nav_down", KEY_S)
-	AddKeybind("menu_selected", KEY_ENTER)
-	AddKeybind("menu_selected", KEY_KP_ENTER)
-	AddKeybind("menu_back", KEY_ESCAPE)
-	AddKeybind("menu_back", KEY_BACKSPACE)
+	InputHelper.AddKeybind("menu_nav_up", KEY_W)
+	InputHelper.AddKeybind("menu_nav_down", KEY_S)
+	InputHelper.AddKeybind("menu_selected", KEY_ENTER)
+	InputHelper.AddKeybind("menu_selected", KEY_KP_ENTER)
+	InputHelper.AddKeybind("menu_back", KEY_ESCAPE)
+	InputHelper.AddKeybind("menu_back", KEY_BACKSPACE)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -27,10 +27,10 @@ func _exit_tree() -> void:
 	DesignData.UnloadTable(DesignData.CMenuData.m_tableName)
 	DesignData.UnloadTable(DesignData.CMenuItemData.m_tableName)
 	
-	RemoveKeybind("menu_nav_up")
-	RemoveKeybind("menu_nav_down")
-	RemoveKeybind("menu_selected")
-	RemoveKeybind("menu_back")
+	InputHelper.RemoveKeybind("menu_nav_up")
+	InputHelper.RemoveKeybind("menu_nav_down")
+	InputHelper.RemoveKeybind("menu_selected")
+	InputHelper.RemoveKeybind("menu_back")
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("menu_nav_up"):
@@ -41,20 +41,3 @@ func _unhandled_input(event: InputEvent) -> void:
 		$MenuSystem.MenuItemSelect()
 	elif event.is_action_pressed("menu_back"):
 		$MenuSystem.MenuItemBack()
-
-func AddKeybind( actionName:StringName, key) -> void:
-	if !InputMap.has_action(actionName):
-		InputMap.add_action(actionName)
-	
-	var iEvent := InputEventKey.new()
-	iEvent.keycode = key
-	iEvent.pressed = true
-	
-	if !InputMap.action_has_event(actionName,iEvent):
-		InputMap.action_add_event(actionName, iEvent)
-	else:
-		print("already has input event: ", actionName, " key: ", str(key))
-		iEvent = null
-
-func RemoveKeybind(actionName:StringName) -> void:
-	InputMap.erase_action(actionName)
