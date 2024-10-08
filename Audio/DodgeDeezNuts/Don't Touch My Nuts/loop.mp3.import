@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://jj1t4re3tn50"
+path="res://.godot/imported/loop.mp3-bba068fc305863b0446a8b013db4096c.mp3str"
+
+[deps]
+
+source_file="res://Audio/DodgeDeezNuts/Don't Touch My Nuts/loop.mp3"
+dest_files=["res://.godot/imported/loop.mp3-bba068fc305863b0446a8b013db4096c.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

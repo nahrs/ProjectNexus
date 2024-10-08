@@ -74,8 +74,8 @@
 		"GameSelect.DodgeDeezNuts": {
 			"text": "Dodge Deez Nuts",
 			"subText": "A cautionary tale about the serious effects of allergies",
-			"callback": "OnGameSelect_DodgeDeezNuts",
-			"callbackParams": "",
+			"callback": "fireEvent",
+			"callbackParams": "SceneTransition,DodgeDeezNuts",
 			"subMenu": ""
 		}
 	}

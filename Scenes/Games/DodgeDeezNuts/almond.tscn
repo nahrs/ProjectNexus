@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2qqsq44wflgp"]
+
+[ext_resource type="Script" path="res://Scenes/Games/DodgeDeezNuts/almond.gd" id="1_phtay"]
+[ext_resource type="Texture2D" uid="uid://bovdl5vynfun6" path="res://Art/DodgeDeezNuts/Deez Nuts/almond.png" id="2_54a7c"]
+
+[node name="almond" type="RigidBody2D" groups=["nuts"]]
+gravity_scale = 0.0
+script = ExtResource("1_phtay")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_54a7c")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-40, -8, -32, -24, -24, -32, -8, -40, 8, -40, 8, -24, 16, -24, 32, -24, 40, -16, 40, 16, 32, 40, 24, 40, 16, 32, 0, 8, -16, 16, -32, 16, -40, 8)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

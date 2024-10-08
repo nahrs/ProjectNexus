@@ -1,0 +1,89 @@
+[gd_scene load_steps=13 format=3 uid="uid://dxld663k1o06a"]
+
+[ext_resource type="Script" path="res://Scenes/Games/DodgeDeezNuts/player.gd" id="1_ex60i"]
+[ext_resource type="Texture2D" uid="uid://44vnv4t4id2i" path="res://Art/DodgeDeezNuts/dead_hands.png" id="2_xvl22"]
+[ext_resource type="Texture2D" uid="uid://bqobgl6owlrer" path="res://Art/DodgeDeezNuts/move_hands.png" id="3_1ebev"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7vcbq"]
+atlas = ExtResource("2_xvl22")
+region = Rect2(0, 0, 69, 69)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3m8ra"]
+atlas = ExtResource("2_xvl22")
+region = Rect2(69, 0, 69, 69)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xvs6a"]
+atlas = ExtResource("2_xvl22")
+region = Rect2(138, 0, 69, 69)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w8ego"]
+atlas = ExtResource("2_xvl22")
+region = Rect2(207, 0, 69, 69)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uwl8o"]
+atlas = ExtResource("3_1ebev")
+region = Rect2(10, 0, 66, 69)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kaaho"]
+atlas = ExtResource("3_1ebev")
+region = Rect2(76, 0, 66, 69)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5gibe"]
+atlas = ExtResource("3_1ebev")
+region = Rect2(142, 0, 66, 69)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b0q5v"]
+atlas = ExtResource("3_1ebev")
+region = Rect2(208, 0, 66, 69)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fqb56"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7vcbq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3m8ra")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xvs6a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w8ego")
+}],
+"loop": true,
+"name": &"deadhands",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uwl8o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kaaho")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5gibe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b0q5v")
+}],
+"loop": false,
+"name": &"deezhands",
+"speed": 6.0
+}]
+
+[node name="Player" type="Area2D"]
+position = Vector2(21, 14)
+script = ExtResource("1_ex60i")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 1)
+sprite_frames = SubResource("SpriteFrames_fqb56")
+animation = &"deezhands"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(13, -29, 16, -30, 18, -27, 21, -22, 21, -17, 21, -9, 20, -1, 20, 6, 21, 18, 21, 22, 20, 25, 16, 28, 11, 29, 9, 32, 3, 33, 1, 31, -4, 25, -6, 17, -6, 13, -2, 12, 1, 11, 3, 7, 6, 1, 9, -5, 11, -13, 12, -18, 12, -21)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

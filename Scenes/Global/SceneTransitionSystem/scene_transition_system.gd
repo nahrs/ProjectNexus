@@ -50,5 +50,7 @@ func CreateSceneByName(sceneName:StringName) -> Node:
 		return preload("res://Scenes/Games/MainMenu/SuperMainMenu.tscn").instantiate()
 	elif sceneName == SceneGlobal.m_dodgeTheJareds:
 		return preload("res://Scenes/Games/DodgeTheJareds/main.tscn").instantiate()
+	elif sceneName == SceneGlobal.m_dodgeDeezNutz:
+		return preload("res://Scenes/Games/DodgeDeezNuts/main.tscn").instantiate()
 	else:
 		return null

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://btlkp1ue8av7v"
+path="res://.godot/imported/Deez Nuts.mp3-4defa20e7347b55d7fb860149fa848a5.mp3str"
+
+[deps]
+
+source_file="res://audio/Deez Nuts.mp3"
+dest_files=["res://.godot/imported/Deez Nuts.mp3-4defa20e7347b55d7fb860149fa848a5.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
