@@ -22,4 +22,4 @@ Now I am trying to find the button and how to teach it to grab my main scene. I 
 
 ## Input map WARNING!
 
-when bringing in your game, you may want to change the codebase to the convention of this input map or find a way to import yours.
+when bringing in your game, you may want to change the codebase to the convention of this input map or find a way to import yours, or sneak a peak at how super_main_menu.gd dynamically adds and removes your entry into the input map.
