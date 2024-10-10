@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfvsn1u2sf7x2"]
+
+[ext_resource type="Script" path="res://Scenes/Games/Untitled Game/main.gd" id="1_k6i1n"]
+
+[node name="Main" type="TileMapLayer"]
+script = ExtResource("1_k6i1n")
