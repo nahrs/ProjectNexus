@@ -24,6 +24,7 @@
 				"MenuItem[GameSelect.DodgeTheCops]",
 				"MenuItem[GameSelect.DodgeDeezNuts]",
 				"MenuItem[GameSelect.DodgeTheJareds]",
+				"MenuItem[GameSelect.UntitledGame]",
 				"MenuItem[GameSelect.Back]"
 			]
 		}

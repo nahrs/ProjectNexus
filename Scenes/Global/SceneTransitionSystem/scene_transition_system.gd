@@ -46,13 +46,16 @@ func HandleEventSceneTransition(params:Variant) -> void:
 	myParent.add_child(m_currentScene)
 
 func CreateSceneByName(sceneName:StringName) -> Node:
-	if sceneName == SceneGlobal.m_superMainMenu:
-		return preload("res://Scenes/Games/MainMenu/SuperMainMenu.tscn").instantiate()
-	elif sceneName == SceneGlobal.m_dodgeTheJareds:
-		return preload("res://Scenes/Games/DodgeTheJareds/main.tscn").instantiate()
-	elif sceneName == SceneGlobal.m_dodgeDeezNutz:
-		return preload("res://Scenes/Games/DodgeDeezNuts/main.tscn").instantiate()
-	elif sceneName == SceneGlobal.m_dodgeTheCops:
-		return preload("res://Scenes/Games/DodgeTheCops/Scenes/main.tscn").instantiate()
-	else:
-		return null
+	match sceneName:
+		SceneGlobal.m_superMainMenu:
+			return preload("res://Scenes/Games/MainMenu/SuperMainMenu.tscn").instantiate()
+		SceneGlobal.m_dodgeTheJareds:
+			return preload("res://Scenes/Games/DodgeTheJareds/main.tscn").instantiate()
+		SceneGlobal.m_dodgeDeezNutz:
+			return preload("res://Scenes/Games/DodgeDeezNuts/main.tscn").instantiate()
+		SceneGlobal.m_dodgeTheCops:
+			return preload("res://Scenes/Games/DodgeTheCops/Scenes/main.tscn").instantiate()
+		SceneGlobal.m_untitledGame:
+			return preload("res://Scenes/Games/Untitled Game/main.tscn").instantiate()
+	
+	return null

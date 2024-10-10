@@ -77,6 +77,13 @@
 			"callback": "fireEvent",
 			"callbackParams": "SceneTransition,DodgeDeezNuts",
 			"subMenu": ""
+		},
+		"GameSelect.UntitledGame": {
+			"text": "UntitledGame",
+			"subText": "Like wizards and shit",
+			"callback": "fireEvent",
+			"callbackParams": "SceneTransition,UntitledGame",
+			"subMenu": ""
 		}
 	}
 }
