@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://q72iaelf7km4"]
 
 [ext_resource type="Script" path="res://Scenes/Games/MainMenu/super_main_menu.gd" id="1_vek0y"]
-[ext_resource type="PackedScene" uid="uid://ea68uiqkldeo" path="res://Scenes/Global/menu_system.tscn" id="2_anvg7"]
+[ext_resource type="PackedScene" uid="uid://ea68uiqkldeo" path="res://Scenes/Global/MenuSystem/menu_system.tscn" id="2_anvg7"]
 [ext_resource type="Texture2D" uid="uid://q260ocbx7o3q" path="res://Scenes/Games/MainMenu/Art/GalaxyBG.png" id="2_dle7b"]
 [ext_resource type="AudioStream" uid="uid://dagp4cmajslhe" path="res://Scenes/Games/MainMenu/Art/homeworld.mp3" id="4_eba58"]
 

@@ -59,12 +59,11 @@ func createMenuItemInterfaceElement(menuItem: DesignData.CMenuItemData, index: i
 	var padding = 3
 	
 	button.text = text
+	button.add_theme_font_size_override("font_size", fontSize as int)
 	add_child(button)
 	
-	button.add_theme_font_size_override("font_size", fontSize as int)
-	
 	var xpos: float = -(button.get_rect().get_center().x)
-	var ypos: float = index * (button.size.y + padding) 
+	var ypos: float = index * (button.size.y + padding)
 	
 	#print("xpos: ", xpos)
 	#print("ypos: ", ypos)
