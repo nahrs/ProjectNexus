@@ -56,6 +56,6 @@ func CreateSceneByName(sceneName:StringName) -> Node:
 		SceneGlobal.m_dodgeTheCops:
 			return preload("res://Scenes/Games/DodgeTheCops/Scenes/main.tscn").instantiate()
 		SceneGlobal.m_untitledGame:
-			return preload("res://Scenes/Games/Untitled Game/main.tscn").instantiate()
+			return preload("res://Scenes/Games/UntitledGame/main.tscn").instantiate()
 	
 	return null
