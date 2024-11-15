@@ -59,7 +59,7 @@ func _physics_process(delta: float) -> void:
 		$AnimatedSprite2D.play()
 
 	# movement
-	var collision_info = move_and_collide(velocity * delta)
+	move_and_collide(velocity * delta)
 	position = position.clamp(Vector2.ZERO, screen_size)
 
 func PlayShoot():
