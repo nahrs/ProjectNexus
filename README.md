@@ -38,3 +38,12 @@ Ground Layer is kind of just defining the island at the moment with grass.
 The ground could be expanded considering that there is so much water at the moment.
 This is mostly a proof of concept type thing anyway.
 If this were to become more fleshed out, we'd probably want our own custom artwork.
+
+
+Manic Mania should play like an arcade game. Start with a timer and successful deliveries add time
+
+Just dropping down some thoughts, I may have already written this above, but here is a small checklist of things I think are needed to make this game
+
+* spawner (ideally written abstractly because cops and packages and drop off points)
+
+* we need collision, I want to have side walk that can have some pedestrians on it (spawner) cars that drive around on the road. I want to give extra points for riding opposite lane as well as sidewalk. Collisions should slow you down or knock you off the bike if you are riding fast enough and stop quickly enough. "grass or other surfaces should slow you down
