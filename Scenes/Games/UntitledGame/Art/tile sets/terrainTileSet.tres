@@ -1,10 +1,10 @@
 [gd_resource type="TileSet" load_steps=3 format=3 uid="uid://chcxtlkby6tx4"]
 
-[ext_resource type="Texture2D" uid="uid://b2btvjk8o81eg" path="res://Art/Kenney's Roguelike/Roguelike City Pack/Spritesheet/roguelikeCity_transparent.png" id="1_siu6b"]
+[ext_resource type="Texture2D" uid="uid://b2btvjk8o81eg" path="res://Art/Kenney's Roguelike/Roguelike City Pack/Spritesheet/roguelikeCity_transparent.png" id="1_mjc3m"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nv4u7"]
 resource_name = "roguelike_city_pack"
-texture = ExtResource("1_siu6b")
+texture = ExtResource("1_mjc3m")
 separation = Vector2i(1, 1)
 0:0/0 = 0
 0:0/0/terrain_set = 0
