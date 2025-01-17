@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends CharacterBody2D
 
 signal hit
 signal shoot
@@ -14,7 +14,7 @@ func _ready():
 	dead = false
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-	var velocity = Vector2.ZERO
+	var lvelocity = Vector2.ZERO
 	if(dead):
 		return
 	# let death or attack animations finish
@@ -30,20 +30,20 @@ func _physics_process(delta: float) -> void:
 		PlayShoot()
 		return
 	if Input.is_action_pressed("moveRight"):
-		velocity.x += 1
+		lvelocity.x += 1
 	if Input.is_action_pressed("moveLeft"):
-		velocity.x -= 1
+		lvelocity.x -= 1
 	if Input.is_action_pressed("moveDown"):
-		velocity.y += 1
+		lvelocity.y += 1
 	if Input.is_action_pressed("moveUp"):
-		velocity.y -= 1
+		lvelocity.y -= 1
 	
 	# animation
-	if(velocity.x != 0):
+	if(lvelocity.x != 0):
 		$AnimatedSprite2D.animation = "walk"
 		$AnimatedSprite2D.flip_v = false
-		$AnimatedSprite2D.flip_h = velocity.x < 0
-	elif(velocity.y != 0):
+		$AnimatedSprite2D.flip_h = lvelocity.x < 0
+	elif(lvelocity.y != 0):
 		$AnimatedSprite2D.animation = "walk"
 		#$AnimatedSprite2D.flip_v = false
 		#$AnimatedSprite2D.flip_h = false
@@ -53,13 +53,17 @@ func _physics_process(delta: float) -> void:
 		$AnimatedSprite2D.flip_v = false
 
 	if velocity.length() > 0:
-		velocity = velocity.normalized() * speed
+		lvelocity = lvelocity.normalized() * speed
 		$AnimatedSprite2D.play()
 	else:
 		$AnimatedSprite2D.play()
 
 	# movement
-	move_and_collide(velocity * delta)
+	#move_and_collide(velocity * delta)
+	#set_axis_velocity(velocity * delta)
+	#velocity *= delta
+	velocity = lvelocity
+	move_and_slide()
 	position = position.clamp(Vector2.ZERO, screen_size)
 
 func PlayShoot():
