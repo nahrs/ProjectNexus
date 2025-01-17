@@ -13,7 +13,7 @@ func _ready():
 	screen_size = get_viewport_rect().size
 	dead = false
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	var lvelocity = Vector2.ZERO
 	if(dead):
 		return
