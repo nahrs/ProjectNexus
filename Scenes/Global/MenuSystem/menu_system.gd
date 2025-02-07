@@ -18,7 +18,7 @@ func _process(_delta: float) -> void:
 	pass
 
 # Add a menu 
-func LoadMenu(menuKey: String, location : Vector2 = get_viewport_rect().get_center(), fontSize : float = 15)-> bool:
+func LoadMenu(menuKey: String, location : Vector2 = get_viewport_rect().get_center(), fontSize : float = 18)-> bool:
 	#Load the data for the menu.
 	var menuData := DesignData.GetData(DesignData.CMenuData.m_tableName, menuKey) as DesignData.CMenuData
 	if menuData == null:
@@ -28,7 +28,11 @@ func LoadMenu(menuKey: String, location : Vector2 = get_viewport_rect().get_cent
 	#clear prev buttons
 	ClearMenuItems()
 	
+<<<<<<< HEAD:Scenes/Global/MenuSystem/menu_system.gd
 	#print(self.getLargestButtonX())
+=======
+	print(get_script().get_path(), ": ", self.getLargestButtonX())
+>>>>>>> 564a5ca7c71c194c4bc311692d2a4ca93e87d122:Scenes/Global/menu_system.gd
 	#menuData.m_header
 	
 	# set menu position and scale
@@ -65,8 +69,14 @@ func createMenuItemInterfaceElement(menuItem: DesignData.CMenuItemData, index: i
 	var xpos: float = -(button.get_rect().get_center().x)
 	var ypos: float = index * (button.size.y + padding)
 	
+<<<<<<< HEAD:Scenes/Global/MenuSystem/menu_system.gd
 	#print("xpos: ", xpos)
 	#print("ypos: ", ypos)
+=======
+	print("xpos: ", xpos)
+	print("ypos: ", ypos)
+	print("")
+>>>>>>> 564a5ca7c71c194c4bc311692d2a4ca93e87d122:Scenes/Global/menu_system.gd
 	
 	g_menuButtons.push_back(button) 
 	button.set_position(Vector2(xpos, ypos))
@@ -118,7 +128,15 @@ func buttonPressed(id:DesignData.CTableKey) -> void:
 	if (subMenu.m_key.length() > 0):
 		LoadMenu(subMenu.m_key, g_previousLocation, g_previousFontSize)
 
+<<<<<<< HEAD:Scenes/Global/MenuSystem/menu_system.gd
 func quitGame(_params:String) -> void:
+=======
+func OnGameSelect_DodgeTheJareds():
+	var scene = preload("res://Scenes/Games/DodgeTheJareds/main.tscn").instantiate()
+	add_child(scene)
+
+func quitGame() -> void:
+>>>>>>> 564a5ca7c71c194c4bc311692d2a4ca93e87d122:Scenes/Global/menu_system.gd
 	get_tree().quit()
 
 func fireEvent(params:String) -> void:

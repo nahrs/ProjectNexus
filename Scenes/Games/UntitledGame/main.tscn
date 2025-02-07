@@ -10,4 +10,3 @@ tile_map_data = PackedByteArray("AAAvAB4AAAABABoAAAAvAB0AAAABABoAAAAvABwAAAABABo
 
 [node name="Player" parent="." instance=ExtResource("2_teb0o")]
 position = Vector2(596, 155)
-gravity_scale = 0.0
