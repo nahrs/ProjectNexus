@@ -1,12 +1,36 @@
 {
-	"Arcane": {
-		"Magic":1,
-		"Charm":1
-	},
-	"Martial":{
-		"Physical":1,
-		"Blunt":1,
-		"Explosion":1
+	"table" : "Resistances",
+	"keys" : {
+		"Resistances.Magic": {
+			"name" : "Magic",
+			"health":1,
+			"resist":1,
+			"superType": "Arcane"
+		},
+		"Resistances.Charm" : {
+			"name":"Charm",
+			"health":1,
+			"resist":0.5,
+			"superType":"Arcane"
+		},
+		"Resistances.Physical":{
+			"name":"Physical",
+			"health":1,
+			"resist":1,
+			"superType":"Martial"
+		},
+		"Resistances.Blunt":{
+			"name":"Blunt",
+			"health":1,
+			"resist":1,
+			"superType":"Martial"
+		},
+		"Resistances.Explosive":{
+			"name":"Explosive",
+			"health":1,
+			"resist":1,
+			"superType":"Martial"
+		},
+		
 	}
-	
 }

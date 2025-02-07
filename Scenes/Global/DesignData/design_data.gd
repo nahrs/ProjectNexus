@@ -25,6 +25,7 @@ func RegisterDataTypes() -> void:
 	m_DesignData.RegisterDataType(CUnitTestData)
 	m_DesignData.RegisterDataType(CMenuData)
 	m_DesignData.RegisterDataType(CMenuItemData)
+	m_DesignData.RegisterDataType(CResistanceData)
 
 func RunDesignDataUnitTest():
 	var unitData := DesignData.GetData(DesignData.CUnitTestData.m_tableName, "EntryOne") as DesignData.CUnitTestData
@@ -514,3 +515,31 @@ class CMenuItemData extends CBaseData:
 			, GetFieldString(prefix, "callbackParams", m_callBackParams)
 			, GetFieldString(prefix, "subMenu", m_subMenu))
 		return contents
+
+######################################################################################################
+
+class CResistanceData extends CBaseData:
+	static var m_tableName:StringName = "Resistances"
+	static var m_fileName:String = "res://Scenes/Games/UntitledGame/Scenes/mobs/resistances.json"
+	
+	var m_name:String
+	var m_health:int
+	var m_resist:float
+	var m_superType:String
+	
+	func LoadData( key:StringName, jsonData:Dictionary) -> void:
+		SetTableKey(m_tableName, key)
+		m_name = CDesignDataManager.LoadJsonString(jsonData, "name")
+		m_health = CDesignDataManager.LoadJsonInt(jsonData, "health")
+		m_resist = CDesignDataManager.LoadJsonFloat(jsonData, "resist")
+		m_superType = CDesignDataManager.LoadJsonString(jsonData, "superType")
+	
+	func GetContents(prefix:String = "") -> String:
+		var contents = str( super(prefix)
+			, GetFieldString(prefix, "name", m_name)
+			, GetFieldString(prefix, "health", m_health)
+			, GetFieldString(prefix, "resist", m_resist)
+			, GetFieldString(prefix, "superType", m_superType))
+		return contents
+
+######################################################################################################
