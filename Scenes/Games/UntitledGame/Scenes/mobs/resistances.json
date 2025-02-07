@@ -1,0 +1,12 @@
+{
+	"Arcane": {
+		"Magic":1,
+		"Charm":1
+	},
+	"Martial":{
+		"Physical":1,
+		"Blunt":1,
+		"Explosion":1
+	}
+	
+}
