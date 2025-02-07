@@ -7,7 +7,10 @@ func IsTableLoaded(table:StringName) -> bool:
 	return m_DesignData.IsTableLoaded(table)
 
 func LoadTable(table:StringName) -> bool:
-	return m_DesignData.LoadTable(table)
+	return m_DesignData.LoadTableFromDefaultFile(table)
+	
+func LoadTableFromFile(table:StringName, fileName:String) -> bool:
+	return m_DesignData.LoadTable(table,fileName)
 
 func UnloadTable(table:String) -> bool:
 	return m_DesignData.UnloadTable(table)
@@ -118,13 +121,15 @@ class CDesignDataManager :
 	func IsTableLoaded(tableName:StringName) -> bool:
 		return m_dataTablesByName.has(tableName) == true
 	
-	func LoadTable(tableName:StringName)->bool:
+	func LoadTableFromDefaultFile(tableName)->bool:
+		var fileName:String = GetTableFileName(tableName)
+		return LoadTable(tableName, fileName)
+		
+	func LoadTable(tableName:StringName, fileName:String)->bool:
 		#m_dataTablesByName.make_read_only()
 		if m_dataTablesByName.has(tableName):
 			print("CDesignDataManager::LoadTable - ERROR! tried to load table that has already been loaded ", tableName )
 			return false
-		
-		var fileName:String = GetTableFileName(tableName)
 		
 		var jsonFile := FileAccess.open(fileName, FileAccess.READ)
 		if jsonFile == null:
@@ -466,16 +471,19 @@ class CMenuData extends CBaseData:
 	
 	var m_header:String
 	var m_menuItems: Array[CTableKey]
+	var m_rows:int
 
 	func LoadData(key:StringName, jsonData:Dictionary) -> void:
 		SetTableKey(m_tableName, key)
 		m_header = CDesignDataManager.LoadJsonString(jsonData, "header")
 		m_menuItems = CDesignDataManager.LoadJsonTableKeyArray(jsonData, "menuItems")
+		m_rows = CDesignDataManager.LoadJsonInt(jsonData, "rows")
 
 	func GetContents(prefix:String = "") -> String:
 		var contents = str( super(prefix)
 			, GetFieldString(prefix, "header", m_header)
-			, GetFieldString(prefix, "menuItems", m_menuItems))
+			, GetFieldString(prefix, "menuItems", m_menuItems)
+			, GetFieldString(prefix, "rows", m_rows))
 		return contents
 
 ######################################################################################################

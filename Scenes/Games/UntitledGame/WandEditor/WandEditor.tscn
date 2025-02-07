@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://blhwlb1mm6b7n"]
+
+[ext_resource type="Script" path="res://Scenes/Games/UntitledGame/WandEditor/wand_editor.gd" id="1_qal6a"]
+[ext_resource type="PackedScene" uid="uid://d1ml7lkbi03ax" path="res://Scenes/Games/UntitledGame/WandEditor/BuildingSelector.tscn" id="2_s35gk"]
+[ext_resource type="PackedScene" uid="uid://b2x00c8ulqjud" path="res://Scenes/Games/UntitledGame/WandEditor/wandPlayer.tscn" id="3_mmg1y"]
+
+[node name="WandEditor" type="Node2D"]
+script = ExtResource("1_qal6a")
+
+[node name="UICanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="WandEditorViewport" type="SubViewport" parent="UICanvasLayer"]
+
+[node name="BuildingSelector" parent="UICanvasLayer" instance=ExtResource("2_s35gk")]
+position = Vector2(65, 36)
+
+[node name="TopCanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="Player" parent="TopCanvasLayer" instance=ExtResource("3_mmg1y")]
+position = Vector2(64, 36)
+collision_mask = 1

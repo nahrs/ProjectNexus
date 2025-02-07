@@ -1,0 +1,54 @@
+{
+	"table": "MenuItem",
+	"keys" : {
+		"BuildObject.EnergySiphon": {
+			"text": "Siphon",
+			"subText": "Siphon energy from a focus",
+			"callback": "",
+			"callbackParams": "",
+			"subMenu": ""
+		},
+		"BuildObject.SmallPipe": {
+			"text": "Small Pipe",
+			"subText": "Move energy from one place to another",
+			"callback": "",
+			"callbackParams": "",
+			"subMenu": ""
+		},
+		"BuildObject.LargePipe": {
+			"text": "Large Pipe",
+			"subText": "Move around spell effects",
+			"callback": "",
+			"callbackParams": "",
+			"subMenu": ""
+		},
+		"BuildObject.EffectCombinator": {
+			"text": "Effect Combinator",
+			"subText": "combine multiple spell effects",
+			"callback": "",
+			"callbackParams": "",
+			"subMenu": ""
+		},
+		"BuildObject.ProjectilePackager": {
+			"text": "Projectile Packager",
+			"subText": "",
+			"callback": "",
+			"callbackParams": "",
+			"subMenu": ""
+		},
+		"BuildObject.EnergyCondenser": {
+			"text": "EnergyCondenser",
+			"subText": "Condenses magical energy over time then releases a condensed orb when finished",
+			"callback": "",
+			"callbackParams": "",
+			"subMenu": ""
+		},
+		"BuildObject.Accelerator": {
+			"text": "Accelerator",
+			"subText": "Accelerates the contents of an adjacent pipe",
+			"callback": "",
+			"callbackParams": "",
+			"subMenu": ""
+		},
+	}
+}

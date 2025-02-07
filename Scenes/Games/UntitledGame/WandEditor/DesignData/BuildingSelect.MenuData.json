@@ -1,0 +1,18 @@
+	{
+	"table": "Menu",
+	"keys" : {
+		"Root" :{
+			"header" : "Root",
+			"rows" : 4,
+			"menuItems" : [
+				"MenuItem[BuildObject.EnergySiphon]",
+				"MenuItem[BuildObject.SmallPipe]",
+				"MenuItem[BuildObject.LargePipe]",
+				"MenuItem[BuildObject.EffectCombinator]",
+				"MenuItem[BuildObject.ProjectilePackager]",
+				"MenuItem[BuildObject.EnergyCondenser]",
+				"MenuItem[BuildObject.Accelerator]",
+			]
+		}
+	}
+}

@@ -7,17 +7,13 @@ signal shoot
 var screen_size 			# size of the game window.
 
 var dead = false
-var m_hasFocus = false
-
-func SetFocus(hasFocus:bool):
-	if hasFocus != m_hasFocus:
-		m_hasFocus = hasFocus
-		$Camera2D.enabled = m_hasFocus
+var hasFocus = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
 	dead = false
+	$Camera2D.enabled = true
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
 	var velocity = Vector2.ZERO
@@ -30,8 +26,8 @@ func _physics_process(delta: float) -> void:
 	if($AnimatedSprite2D.get_animation() == "attack" && $AnimatedSprite2D.is_playing()):
 		#print("currentAnim: " + $AnimatedSprite2D.get_animation())
 		return
-	 
-	if m_hasFocus:
+	
+	if !hasFocus:
 		# check inputs
 		if(Input.is_action_just_pressed("attack")):
 			PlayShoot()
@@ -44,7 +40,7 @@ func _physics_process(delta: float) -> void:
 			velocity.y += 1
 		if Input.is_action_pressed("moveUp"):
 			velocity.y -= 1
-		
+	
 	# animation
 	if(velocity.x != 0):
 		$AnimatedSprite2D.animation = "walk"

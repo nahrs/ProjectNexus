@@ -43,7 +43,12 @@ func LoadMenu(menuKey: String, location : Vector2 = get_viewport_rect().get_cent
 	for tableKey:DesignData.CTableKey in menuData.m_menuItems:
 		var menuItemData := DesignData.GetDataByTableKey(tableKey) as DesignData.CMenuItemData
 		if menuItemData != null:
-			createMenuItemInterfaceElement(menuItemData, menuItemCount, fontSize)
+			var index = menuItemCount
+			var col = 0
+			if menuData.m_rows > 0:
+				index = menuItemCount % menuData.m_rows
+				col = menuItemCount / menuData.m_rows
+			createMenuItemInterfaceElement(menuItemData, index, col, fontSize)
 			menuItemCount = menuItemCount + 1
 	
 	#TODO data should probably determine whether or not we maintain the stack.
@@ -53,7 +58,7 @@ func LoadMenu(menuKey: String, location : Vector2 = get_viewport_rect().get_cent
 	
 	return true
 
-func createMenuItemInterfaceElement(menuItem: DesignData.CMenuItemData, index: int, fontSize: float) -> void:
+func createMenuItemInterfaceElement(menuItem: DesignData.CMenuItemData, index: int, column:int, fontSize: float) -> void:
 	var text = menuItem.m_text
 	var button = Button.new()
 	var padding = 3
@@ -62,7 +67,9 @@ func createMenuItemInterfaceElement(menuItem: DesignData.CMenuItemData, index: i
 	button.add_theme_font_size_override("font_size", fontSize as int)
 	add_child(button)
 	
-	var xpos: float = -(button.get_rect().get_center().x)
+	var buttonLength = button.get_rect().get_center().x
+	
+	var xpos: float = -(buttonLength) + (2 * buttonLength * column)
 	var ypos: float = index * (button.size.y + padding)
 	
 	#print("xpos: ", xpos)
