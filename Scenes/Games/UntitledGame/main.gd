@@ -11,6 +11,11 @@ func _ready() -> void:
 	get_window().size = Vector2(1600,1080)
 	InputHelper.AddKeybind("open_wand_editor", KEY_Q)
 	HideWandEditor()
+	$Player.SetFocus(true)
+	
+	DesignData.LoadTable(DesignData.CResistanceData.m_tableName)
+	var physResist : DesignData.CResistanceData = DesignData.GetData("Resistances","Resistances.Physical")
+	print(physResist.m_name)
 
 func _exit_tree() -> void:
 	InputHelper.RemoveKeybind("open_wand_editor")
