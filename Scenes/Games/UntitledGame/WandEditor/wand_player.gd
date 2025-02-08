@@ -4,16 +4,20 @@ signal hit
 signal shoot
 
 @export var speed = 400 	# How fast the player moves pixels/sec.
-var screen_size 			# size of the game window.
+var screen_size = Vector2(0,0)			# size of the game window.
 
 var dead = false
 var hasFocus = false
 
+func GetCamera() -> Camera2D:
+	return $PlayerCam;
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	screen_size = get_viewport_rect().size
+	#screen_size = get_viewport_rect().size
 	dead = false
-	$Camera2D.enabled = true
+	$PlayerCam.enabled = true
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
 	var velocity = Vector2.ZERO
