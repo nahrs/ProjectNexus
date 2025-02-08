@@ -148,6 +148,8 @@ class CDesignDataManager :
 		return LoadTable(tableName, fileName)
 		
 	func LoadTable(tableName:StringName, fileName:String)->bool:
+		print("CDesignDataManager::LoadTable - Loading Table: \"", tableName, "\" from file: \"", fileName, "\"" )
+		
 		#m_dataTablesByName.make_read_only()
 		if m_dataTablesByName.has(tableName):
 			print("CDesignDataManager::LoadTable - ERROR! tried to load table that has already been loaded ", tableName )
@@ -225,6 +227,7 @@ class CDesignDataManager :
 			print("CDesignDataManager::LoadTable - ERROR loading table: ", tableName, " no valid key data was found")
 			return false
 		
+		print("CDesignDataManager::LoadTable - Successfully loaded table : \"", tableName, "\"")
 		return true
 	
 	######################################################################################################
