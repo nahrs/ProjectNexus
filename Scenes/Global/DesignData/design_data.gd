@@ -21,6 +21,12 @@ func GetData( table:StringName, key:StringName) -> CBaseData:
 func GetDataByTableKey( tableKey:CTableKey ) -> CBaseData:
 	return m_DesignData.GetDataByTableKey(tableKey)
 
+func GetTables() -> Array:
+	return m_DesignData.GetTables()
+
+func GetKeys(table:StringName) -> Array:
+	return m_DesignData.GetKeys(table)
+
 func RegisterDataTypes() -> void:
 	m_DesignData.RegisterDataType(CUnitTestData)
 	m_DesignData.RegisterDataType(CMenuData)
@@ -69,6 +75,21 @@ class CDesignDataManager :
 	func RegisterDataType(dataClass:GDScript) -> void:
 		print("CDesignDataManager::RegisterDataType table: ", dataClass.m_tableName, ", fileName: ", dataClass.m_fileName )
 		m_dataObjectTypesByName[dataClass.m_tableName] = [dataClass.m_fileName, dataClass]
+	
+	######################################################################################################
+	
+	func GetTables() -> Array:
+		return m_dataTablesByName.keys()
+	
+	######################################################################################################
+	
+	func GetKeys(table:StringName) -> Array:
+		if m_dataTablesByName.has(table):
+			var keys:Dictionary = m_dataTablesByName[table]
+			return keys.keys()
+		else:
+			print("CDesignDataManager::GetKeys unable to locate table ", table)
+			return []
 	
 	######################################################################################################
 	
