@@ -31,6 +31,11 @@
 			"resist":1,
 			"superType":"Martial"
 		},
-		
+		"Resistances.Flat":{
+			"name":"Flat",
+			"health":0,
+			"resist":0.05,
+			"superType":"None"
+		}
 	}
 }

@@ -1,0 +1,40 @@
+{
+	"table" : "Statuses",
+	"keys" : {
+		"Statuses.Magic": {
+			"name" : "Magic",
+			"statusBuildup":1,
+			"threshold":1,
+			"effect":"manaDrain",
+			"superType": "Arcane"
+		},
+		"Statuses.Charm" : {
+			"name":"Charm",
+			"statusBuildup":1,
+			"threshold":0.5,
+			"effect":"charmed",
+			"superType":"Arcane"
+		},
+		"Statuses.Physical":{
+			"name":"Physical",
+			"statusBuildup":1,
+			"threshold":1,
+			"effect":"stunned",
+			"superType":"Martial"
+		},
+		"Statuses.Blunt":{
+			"name":"Blunt",
+			"statusBuildup":1,
+			"threshold":1,
+			"effect":"stunned",
+			"superType":"Martial"
+		},
+		"Statuses.Explosive":{
+			"name":"Explosive",
+			"statusBuildup":1,
+			"threshold":1,
+			"effect":"concussed",
+			"superType":"Martial"
+		}
+	}
+}

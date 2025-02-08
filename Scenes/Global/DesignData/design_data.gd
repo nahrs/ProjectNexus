@@ -32,6 +32,7 @@ func RegisterDataTypes() -> void:
 	m_DesignData.RegisterDataType(CMenuData)
 	m_DesignData.RegisterDataType(CMenuItemData)
 	m_DesignData.RegisterDataType(CResistanceData)
+	m_DesignData.RegisterDataType(CStatusData)
 
 func RunDesignDataUnitTest():
 	var unitData := DesignData.GetData(DesignData.CUnitTestData.m_tableName, "EntryOne") as DesignData.CUnitTestData
@@ -560,6 +561,35 @@ class CResistanceData extends CBaseData:
 			, GetFieldString(prefix, "name", m_name)
 			, GetFieldString(prefix, "health", m_health)
 			, GetFieldString(prefix, "resist", m_resist)
+			, GetFieldString(prefix, "superType", m_superType))
+		return contents
+
+######################################################################################################
+
+class CStatusData extends CBaseData:
+	static var m_tableName:StringName = "Statuses"
+	static var m_fileName:String = "res://Scenes/Games/UntitledGame/Scenes/mobs/statuses.json"
+	
+	var m_name:String
+	var m_statusBuildup:float
+	var m_threshold:float
+	var m_superType:String
+	var m_effect:String
+	
+	func LoadData( key:StringName, jsonData:Dictionary) -> void:
+		SetTableKey(m_tableName, key)
+		m_name = CDesignDataManager.LoadJsonString(jsonData, "name")
+		m_statusBuildup = CDesignDataManager.LoadJsonFloat(jsonData, "statusBuildup")
+		m_threshold = CDesignDataManager.LoadJsonFloat(jsonData, "threshold")
+		m_superType = CDesignDataManager.LoadJsonString(jsonData, "superType")
+		m_effect = CDesignDataManager.LoadJsonString(jsonData, "effect")
+	
+	func GetContents(prefix:String = "") -> String:
+		var contents = str( super(prefix)
+			, GetFieldString(prefix, "name", m_name)
+			, GetFieldString(prefix, "statusBuildup", m_statusBuildup)
+			, GetFieldString(prefix, "threshold", m_threshold)
+			, GetFieldString(prefix, "effect", m_effect)
 			, GetFieldString(prefix, "superType", m_superType))
 		return contents
 
