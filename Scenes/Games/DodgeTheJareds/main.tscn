@@ -40,7 +40,6 @@ jaredLetoScene3 = ExtResource("8_q73by")
 laserScene = ExtResource("9_ddgiw")
 
 [node name="Background" type="TextureRect" parent="."]
-visible = false
 offset_left = -3.0
 offset_right = 1701.0
 offset_bottom = 965.0

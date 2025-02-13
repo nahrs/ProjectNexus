@@ -12,6 +12,10 @@ var m_hasFocus = false
 func SetFocus(hasFocus:bool):
 	if hasFocus != m_hasFocus:
 		m_hasFocus = hasFocus
+		#if m_hasFocus:
+			#$PlayerCam.make_current()
+		#else:
+			#$PlayerCam.enabled = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

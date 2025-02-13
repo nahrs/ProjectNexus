@@ -51,6 +51,7 @@ func newGame() -> void:
 	
 	var wallpaperPath: String = "res://Scenes/Games/DodgeTheJareds/art/Wallpapers/" + str(randi_range(1,8)) + ".png"
 	$Background.texture = load(wallpaperPath)
+	$Background.show()
 	
 	$HUD/Message.hide()
 	$HUD/StartButton.hide()

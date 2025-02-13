@@ -1,11 +1,14 @@
 extends Node2D
-
-
+	
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	DesignData.LoadTableFromFile(DesignData.CMenuData.m_tableName, "res://Scenes/Games/UntitledGame/WandEditor/DesignData/BuildingSelect.MenuData.json" )
 	DesignData.LoadTableFromFile(DesignData.CMenuItemData.m_tableName, "res://Scenes/Games/UntitledGame/WandEditor/DesignData/BuildingSelect.MenuItemData.json")
-	$MenuSystem.LoadMenu("Root",Vector2(600,400),32)
+	
+	#var menuLoc := position
+	#menuLoc.x += 600
+	
+	$MenuSystem.LoadMenu("Root",position,32)
 
 func _exit_tree() -> void:
 	$MenuSystem.ClearMenuItems()

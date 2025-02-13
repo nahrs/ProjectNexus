@@ -6,12 +6,16 @@
 script = ExtResource("1_hgd1r")
 
 [node name="SelectGame" type="Label" parent="."]
-offset_left = 5.0
+offset_left = 7.0
 offset_top = 9.0
-offset_right = 112.0
+offset_right = 141.0
 offset_bottom = 39.0
 scale = Vector2(3, 3)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/outline_size = 12
+text = "MENU
+Item 1
+Item 2
+Item 3"
