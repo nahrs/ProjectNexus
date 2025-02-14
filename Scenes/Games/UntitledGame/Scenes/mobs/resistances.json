@@ -3,8 +3,8 @@
 	"keys" : {
 		"Resistances.Magic": {
 			"name" : "Magic",
-			"health":1,
-			"resist":1,
+			"health":1000,
+			"resist":0.1,
 			"superType": "Arcane"
 		},
 		"Resistances.Charm" : {
