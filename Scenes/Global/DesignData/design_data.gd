@@ -588,7 +588,7 @@ class CStatusData extends CBaseData:
 		m_effect = CDesignDataManager.LoadJsonString(jsonData, "effect")
 	
 	func GetContents(prefix:String = "") -> String:
-		var contents = str( super(prefix)
+		var contents := str( super(prefix)
 			, GetFieldString(prefix, "name", m_name)
 			, GetFieldString(prefix, "statusBuildup", m_statusBuildup)
 			, GetFieldString(prefix, "threshold", m_threshold)
