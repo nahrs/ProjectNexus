@@ -49,7 +49,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func ShowWandEditor():
 	if wEditor == null:
-		wEditor = preload("res://Scenes/Games/UntitledGame/WandEditor/WandEditor.tscn").instantiate()
+		wEditor = preload("res://Scenes/Games/UntitledGame/WandEditor/Scenes/WandEditor.tscn").instantiate()
 		#wEditor.position = Vector2(800,200)
 		
 		wandViewPort.add_child(wEditor)

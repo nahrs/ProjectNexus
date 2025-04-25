@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cpcqdgt5ablth" path="res://Scenes/Games/UntitledGame/main.gd" id="1_fiwbo"]
 [ext_resource type="PackedScene" uid="uid://bxsnsk5mdj000" path="res://Scenes/TileSets/roguelike_city_pack.tscn" id="1_vplmf"]
-[ext_resource type="PackedScene" uid="uid://dti3h1ynj1hpj" path="res://Scenes/Games/UntitledGame/Scenes/Player/player.tscn" id="2_teb0o"]
+[ext_resource type="PackedScene" uid="uid://dti3h1ynj1hpj" path="res://Scenes/Games/UntitledGame/WandEditor/Scripts/SceneScripts/player.tscn" id="2_teb0o"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_fiwbo")
@@ -20,6 +20,7 @@ tile_map_data = PackedByteArray("AAAvAB4AAAABABoAAAAvAB0AAAABABoAAAAvABwAAAABABo
 
 [node name="Player" parent="GameViewportContainer" instance=ExtResource("2_teb0o")]
 position = Vector2(592, 269)
+script = null
 
 [node name="WandCanvas" type="CanvasLayer" parent="."]
 layer = 2

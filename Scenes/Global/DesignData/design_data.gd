@@ -478,7 +478,7 @@ class CUnitTestData extends CBaseData:
 		m_tableKeyArr = CDesignDataManager.LoadJsonTableKeyArray(jsonData, "tableKeyArr")
 	
 	func GetContents(prefix:String = "") -> String:
-		var contents = str( super(prefix)
+		var contents := str( super(prefix)
 			, GetFieldString(prefix, "intVar: ", m_intVar)
 			, GetFieldString(prefix, "floatVar: ", m_floatVar)
 			, GetFieldString(prefix, "stringVar: ", m_stringVar)
@@ -506,7 +506,7 @@ class CMenuData extends CBaseData:
 		m_rows = CDesignDataManager.LoadJsonInt(jsonData, "rows")
 
 	func GetContents(prefix:String = "") -> String:
-		var contents = str( super(prefix)
+		var contents := str( super(prefix)
 			, GetFieldString(prefix, "header", m_header)
 			, GetFieldString(prefix, "menuItems", m_menuItems)
 			, GetFieldString(prefix, "rows", m_rows))
@@ -533,7 +533,7 @@ class CMenuItemData extends CBaseData:
 		m_subMenu = CDesignDataManager.LoadJsonTableKey(jsonData, "subMenu")
 	
 	func GetContents(prefix:String = "") -> String:
-		var contents = str( super(prefix)
+		var contents := str( super(prefix)
 			, GetFieldString(prefix, "text", m_text)
 			, GetFieldString(prefix, "subText", m_subText)
 			, GetFieldString(prefix, "callback", m_callBack)
@@ -560,7 +560,7 @@ class CResistanceData extends CBaseData:
 		m_superType = CDesignDataManager.LoadJsonString(jsonData, "superType")
 	
 	func GetContents(prefix:String = "") -> String:
-		var contents = str( super(prefix)
+		var contents := str( super(prefix)
 			, GetFieldString(prefix, "name", m_name)
 			, GetFieldString(prefix, "health", m_health)
 			, GetFieldString(prefix, "resist", m_resist)
@@ -588,7 +588,7 @@ class CStatusData extends CBaseData:
 		m_effect = CDesignDataManager.LoadJsonString(jsonData, "effect")
 	
 	func GetContents(prefix:String = "") -> String:
-		var contents = str( super(prefix)
+		var contents := str( super(prefix)
 			, GetFieldString(prefix, "name", m_name)
 			, GetFieldString(prefix, "statusBuildup", m_statusBuildup)
 			, GetFieldString(prefix, "threshold", m_threshold)

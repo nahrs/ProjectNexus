@@ -12,16 +12,20 @@ config_version=5
 
 config/name="ProjectNexus"
 run/main_scene="res://Scenes/Root/main.tscn"
-config/features=PackedStringArray("4.3", "Forward Plus")
+config/features=PackedStringArray("4.4", "Forward Plus")
 boot_splash/show_image=false
 boot_splash/fullsize=false
 boot_splash/use_filter=false
-config/icon="res://Art/Icons/icon.svg"
+config/icon="res://Art/Icons/MainIcon.png"
 
 [autoload]
 
 DesignData="*res://Scenes/Global/DesignData/design_data.gd"
 EventSystem="*res://Scenes/Global/EventSystem/event_system.gd"
+
+[dotnet]
+
+project/assembly_name="ProjectNexus"
 
 [editor]
 

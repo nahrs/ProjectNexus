@@ -1,6 +1,6 @@
 [gd_scene load_steps=29 format=3 uid="uid://dti3h1ynj1hpj"]
 
-[ext_resource type="Script" path="res://Scenes/Games/UntitledGame/player.gd" id="1_ub67c"]
+[ext_resource type="Script" uid="uid://bcc3fhiqywimw" path="res://Scenes/Games/UntitledGame/Scenes/Player/player.gd" id="1_ys7x6"]
 [ext_resource type="Texture2D" uid="uid://c6nkf4sxks7ex" path="res://Scenes/Games/DodgeTheCops/art/Animation/Man2.png" id="2_3qu3i"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rglgc"]
@@ -205,7 +205,7 @@ height = 68.0
 
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 3
-script = ExtResource("1_ub67c")
+script = ExtResource("1_ys7x6")
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

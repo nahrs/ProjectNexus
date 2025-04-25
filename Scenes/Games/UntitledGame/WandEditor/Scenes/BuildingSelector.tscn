@@ -1,11 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://d1ml7lkbi03ax"]
 
-[ext_resource type="Script" path="res://Scenes/Games/UntitledGame/WandEditor/building_selector.gd" id="1_786nl"]
+[ext_resource type="Script" uid="uid://wbwkaj8t6cjx" path="res://Scenes/Games/UntitledGame/WandEditor/Scenes/building_selector.gd" id="1_g05wg"]
 [ext_resource type="PackedScene" uid="uid://ea68uiqkldeo" path="res://Scenes/Global/MenuSystem/menu_system.tscn" id="2_f6vqi"]
 
 [node name="BuildingSelector" type="Node2D"]
 position = Vector2(1, 0)
-script = ExtResource("1_786nl")
+script = ExtResource("1_g05wg")
 
 [node name="MenuSystem" parent="." instance=ExtResource("2_f6vqi")]
 scale = Vector2(0.3, 0.47)

@@ -16,5 +16,5 @@ func _exit_tree() -> void:
 	DesignData.UnloadTable(DesignData.CMenuItemData.m_tableName)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
