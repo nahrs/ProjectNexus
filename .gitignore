@@ -13,3 +13,17 @@ export_presets.cfg
 .mono/
 data_*/
 mono_crash.*.json# Godot 4+ specific ignores
+
+# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/contentModel.xml
+/.idea.ProjectNexus.iml
+/projectSettingsUpdater.xml
+/modules.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
