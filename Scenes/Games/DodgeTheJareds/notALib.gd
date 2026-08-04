@@ -5,7 +5,7 @@ func getHighScore() -> String:
 	var file = FileAccess.open(highscorePath, FileAccess.READ)
 	if file == null:
 		return "0"
-	var text = file.get_as_text(true)
+	var text = file.get_as_text()
 	return text
 
 func setHighScore(score) -> void:
